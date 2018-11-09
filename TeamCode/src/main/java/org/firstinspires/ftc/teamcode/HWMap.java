@@ -11,6 +11,8 @@ public class HWMap {
     public DcMotor  rightDrive  = null;
     public DcMotor  upperArm    = null;
     public DcMotor  foreArm     = null;
+    public DcMotor  armMotor1   = null;
+    public DcMotor  armMotor2   = null;
 
     // Declaring and Initializing hardware map
     HardwareMap ConceptHWMap        =  null;
@@ -35,10 +37,12 @@ public class HWMap {
         ConceptHWMap = ahwMap;
 
         // Define and Initialize Motors
-        leftDrive = ConceptHWMap.get(DcMotor.class, "left_drive");
-        rightDrive = ConceptHWMap.get(DcMotor.class, "right_drive");
-        upperArm = ConceptHWMap.get(DcMotor.class, "upper_arm");
-        foreArm = ConceptHWMap.get(DcMotor.class, "fore_arm");
+        leftDrive   =   ConceptHWMap.get(DcMotor.class, "left_drive");
+        rightDrive  =   ConceptHWMap.get(DcMotor.class, "right_drive");
+        upperArm    =   ConceptHWMap.get(DcMotor.class, "upper_arm");
+        foreArm     =   ConceptHWMap.get(DcMotor.class, "fore_arm");
+        armMotor1   =   ConceptHWMap.get(DcMotor.class, "arm_motor1");
+        armMotor2   =   ConceptHWMap.get(DcMotor.class, "arm_motor2");
 
         // Sets direction of motor power
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -49,6 +53,8 @@ public class HWMap {
         rightDrive.setPower(0);
         upperArm.setPower(0);
         foreArm.setPower(0);
+        armMotor1.setPower(0);
+        armMotor2.setPower(0);
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
