@@ -38,7 +38,7 @@ public class HWMap {
         leftDrive = ConceptHWMap.get(DcMotor.class, "left_drive");
         rightDrive = ConceptHWMap.get(DcMotor.class, "right_drive");
         upperArm = ConceptHWMap.get(DcMotor.class, "upper_arm");
-        foreArm = ConceptHWMap.get(DcMotor.class, "upperArm");
+        foreArm = ConceptHWMap.get(DcMotor.class, "fore_arm");
 
         // Sets direction of motor power
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
