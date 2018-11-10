@@ -55,23 +55,42 @@ public class DriveOpMode extends OpMode {
             clawOffset -= CLAW_SPEED;
         */
 
-        // Use gamepad buttons to move the arm up (Y) and down (A)
-        // When the time is good, please change the button binds to be accurate to how we want
-        // to control the bot, as this is giving me arthritis looking at it
-        if (gamepad1.y) {
+        // Arm controls
+        
+        // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
+        if (gamepad1.right_bumper) {
             robot.upperArm.setPower(robot.ARM_UP_POWER);
-        } else if (gamepad1.a) {
+        } else if (gamepad1.left_bumper) {
             robot.upperArm.setPower(robot.ARM_DOWN_POWER);
         } else {
             robot.upperArm.setPower(0.0);
         }
 
+        // Use gamepad buttons to move the forearm up (right trigger) and down (left trigger)
         if (gamepad1.right_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_UP_POWER);
         } else if (gamepad1.left_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_DOWN_POWER);
         } else {
             robot.foreArm.setPower(0.0);
+        }
+
+        // Use gamepad buttons to move the armMotor1 up (dpad up) and down (dpad down)
+        if (gamepad1.dpad_up) {
+            robot.armMotor1.setPower(robot.ARM_UP_POWER);
+        } else if (gamepad1.dpad_down) {
+            robot.armMotor1.setPower(robot.ARM_DOWN_POWER);
+        } else {
+            robot.armMotor1.setPower(0);
+        }
+
+        // Use gamepad buttons to move the armMotor2 up (Y) and down (A)
+        if (gamepad1.y) {
+            robot.armMotor2.setPower(robot.ARM_UP_POWER);
+        } else if (gamepad1.a) {
+            robot.armMotor2.setPower(robot.ARM_DOWN_POWER);
+        } else {
+            robot.armMotor2.setPower(0);
         }
 
         // Send telemetry message to signify robot running
@@ -87,5 +106,13 @@ public class DriveOpMode extends OpMode {
     // Runs when robot is stopped (no longer running opmode)
     @Override
     public void stop() {
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+        robot.upperArm.setPower(0);
+        robot.foreArm.setPower(0);
+        robot.armMotor1.setPower(0);
+        robot.armMotor2.setPower(0);
+
+        telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
     }
 }
