@@ -33,6 +33,7 @@ public class DriveOpMode extends OpMode {
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     @Override
     public void loop() {
+        boolean foreArmVal, upperArmVal, armMotor1Val, armMotor2Val;
         double left;
         double right;
 
@@ -60,47 +61,59 @@ public class DriveOpMode extends OpMode {
         // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
         if (gamepad1.right_bumper) {
             robot.upperArm.setPower(robot.ARM_UP_POWER);
+            upperArmVal = true;
         } else if (gamepad1.left_bumper) {
             robot.upperArm.setPower(robot.ARM_DOWN_POWER);
+            upperArmVal = true;
         } else {
             robot.upperArm.setPower(0.0);
+            upperArmVal = false;
         }
 
         // Use gamepad buttons to move the forearm up (right trigger) and down (left trigger)
         if (gamepad1.right_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_UP_POWER);
+            foreArmVal = true;
         } else if (gamepad1.left_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_DOWN_POWER);
+            foreArmVal = true;
         } else {
             robot.foreArm.setPower(0.0);
+            foreArmVal = false;
         }
 
         // Use gamepad buttons to move the armMotor1 up (dpad up) and down (dpad down)
         if (gamepad1.dpad_up) {
             robot.armMotor1.setPower(robot.ARM_UP_POWER);
+            armMotor1Val = true;
         } else if (gamepad1.dpad_down) {
             robot.armMotor1.setPower(robot.ARM_DOWN_POWER);
+            armMotor1Val = true;
         } else {
             robot.armMotor1.setPower(0);
+            armMotor1Val = false;
         }
 
         // Use gamepad buttons to move the armMotor2 up (Y) and down (A)
         if (gamepad1.y) {
             robot.armMotor2.setPower(robot.ARM_UP_POWER);
+            armMotor2Val = true;
         } else if (gamepad1.a) {
             robot.armMotor2.setPower(robot.ARM_DOWN_POWER);
+            armMotor2Val = true;
         } else {
             robot.armMotor2.setPower(0);
+            armMotor2Val = false;
         }
 
-        // Send telemetry message to signify robot running
+        // Send telemetry messages to signify robot running and whats actively going on
         telemetry.addData("ROBOT STATUS:","Not on fire");
         telemetry.addData("left",  "%.2f", left);
         telemetry.addData("right", "%.2f", right);
-
-        // This telemetry is not working entirely, but this will be operational soonish
-        //telemetry.addData("upper arm", "%.2f", upperArm);
-        //telemetry.addData("forearm ", "%.2f", foreArm);
+        telemetry.addData("upper arm", "%.2f", upperArmVal);
+        telemetry.addData("forearm ", "%.2f", foreArmVal);
+        telemetry.addData("armMotor1","%.2f", armMotor1Val);
+        telemetry.addData("armMotor2", "%.2f", armMotor2Val);
     }
 
     // Runs when robot is stopped (no longer running opmode)
