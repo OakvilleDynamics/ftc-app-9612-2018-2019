@@ -56,7 +56,7 @@ public class DriveOpMode extends OpMode {
         */
 
         // Arm controls
-        
+
         // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
         if (gamepad1.right_bumper) {
             robot.upperArm.setPower(robot.ARM_UP_POWER);
