@@ -62,5 +62,7 @@ public class HWMap {
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         upperArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         foreArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
