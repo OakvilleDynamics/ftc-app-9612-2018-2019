@@ -14,7 +14,7 @@ public class HWMap {
     public DcMotor  armMotor2   = null;
 
     // Declaring and Initializing hardware map
-    HardwareMap ConceptHWMap        =  null;
+    HardwareMap ConceptHWMap        = null;
     private ElapsedTime timePeriod  = new ElapsedTime();
 
     // Arm speed values
