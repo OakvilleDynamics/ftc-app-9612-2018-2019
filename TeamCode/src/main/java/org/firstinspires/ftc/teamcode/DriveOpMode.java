@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="Drive Mode", group="Concept")
+@TeleOp(name = "Drive Mode", group = "Concept")
 public class DriveOpMode extends OpMode {
 
     // Call Hardware Map
@@ -109,12 +109,12 @@ public class DriveOpMode extends OpMode {
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
-        telemetry.addData("ROBOT STATUS:","Not on fire");
-        telemetry.addData("left",  "%.2f", left);
+        telemetry.addData("ROBOT STATUS:", "Not on fire");
+        telemetry.addData("left", "%.2f", left);
         telemetry.addData("right", "%.2f", right);
         telemetry.addData("upper arm", "%.2f", upperArmVal);
         telemetry.addData("forearm ", "%.2f", foreArmVal);
-        telemetry.addData("armMotor1","%.2f", armMotor1Val);
+        telemetry.addData("armMotor1", "%.2f", armMotor1Val);
         telemetry.addData("armMotor2", "%.2f", armMotor2Val);
     }
 

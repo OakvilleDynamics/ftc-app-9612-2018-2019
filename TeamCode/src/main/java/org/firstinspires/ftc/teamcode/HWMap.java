@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class HWMap {
-
     // Declaring and Initializing motors
     public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
