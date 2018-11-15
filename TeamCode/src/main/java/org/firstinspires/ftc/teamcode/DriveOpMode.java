@@ -17,17 +17,19 @@ public class DriveOpMode extends OpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot is initialized
-        telemetry.addData("ROBOT", "INITIALIZED");
+        telemetry.addData("ROBOT STATUS", "INITIALIZED");
     }
 
     // Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
     @Override
     public void init_loop() {
+
     }
 
     // Runs code when the driver hits PLAY button
     @Override
     public void start() {
+
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
