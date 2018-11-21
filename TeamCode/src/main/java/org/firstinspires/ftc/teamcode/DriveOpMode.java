@@ -23,13 +23,13 @@ public class DriveOpMode extends OpMode {
     // Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
     @Override
     public void init_loop() {
-
+        telemetry.addData("ROBOT STATUS", "READY");
     }
 
     // Runs code when the driver hits PLAY button
     @Override
     public void start() {
-
+        telemetry.addData("ROBOT STATUS", "RUNNING");
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
