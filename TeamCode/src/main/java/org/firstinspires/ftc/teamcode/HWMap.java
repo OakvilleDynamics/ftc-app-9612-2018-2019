@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class HWMap {
+
     // Declaring and Initializing motors
     public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
@@ -26,7 +27,7 @@ public class HWMap {
     // Constructor class
     // This is used to create an object that can be used by other classes and can take in input
     // from other classes, for instance such as our OpMode
-    public HWMap(){
+    public HWMap() {
 
     }
 
