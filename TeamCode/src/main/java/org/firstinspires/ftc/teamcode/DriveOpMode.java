@@ -49,10 +49,10 @@ public class DriveOpMode extends OpMode {
         // Arm controls
 
         // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
-        if (gamepad1.right_bumper) {
+        if (gamepad2.right_bumper) {
             robot.upperArm.setPower(robot.ARM_UP_POWER);
             upperArmVal = true;
-        } else if (gamepad1.left_bumper) {
+        } else if (gamepad2.left_bumper) {
             robot.upperArm.setPower(robot.ARM_DOWN_POWER);
             upperArmVal = true;
         } else {
@@ -61,10 +61,10 @@ public class DriveOpMode extends OpMode {
         }
 
         // Use gamepad buttons to move the forearm up (right trigger) and down (left trigger)
-        if (gamepad1.right_trigger > 0.25) {
+        if (gamepad2.right_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_UP_POWER);
             foreArmVal = true;
-        } else if (gamepad1.left_trigger > 0.25) {
+        } else if (gamepad2.left_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_DOWN_POWER);
             foreArmVal = true;
         } else {
@@ -72,17 +72,14 @@ public class DriveOpMode extends OpMode {
             foreArmVal = false;
         }
 
-        // Use gamepad buttons to move the armMotor1 up (dpad up) and down (dpad down)
+        // Use gamepad buttons to move the clawServo up (dpad up) and down (dpad down)
         //If the servos do not work as planned blame Ryan for his input
-        if (gamepad1.dpad_up) {
+        if (gamepad2.dpad_up) {
             robot.clawServo.setPosition(1);
-            armMotor1Val = true;
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad2.dpad_down) {
             robot.clawServo.setPosition(-1);
-            armMotor1Val = true;
         } else {
             robot.clawServo.setPosition(0);
-            armMotor1Val = false;
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
@@ -91,7 +88,7 @@ public class DriveOpMode extends OpMode {
         telemetry.addData("right", "%.2f", right);
         telemetry.addData("upper arm", "%.2f", upperArmVal);
         telemetry.addData("forearm ", "%.2f", foreArmVal);
-        telemetry.addData("claw servo", "%.2f", robot.clawServo.getPosition());
+        telemetry.addData("claw servo", "going to burn out");
     }
 
     // Runs when robot is stopped (no longer running opmode)
