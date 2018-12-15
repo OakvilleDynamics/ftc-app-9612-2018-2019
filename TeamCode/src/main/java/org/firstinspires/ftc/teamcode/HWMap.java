@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class HWMap {
@@ -11,8 +12,10 @@ public class HWMap {
     public DcMotor  rightDrive  = null;
     public DcMotor  upperArm    = null;
     public DcMotor  foreArm     = null;
-    public DcMotor  armMotor1   = null;
-    public DcMotor  armMotor2   = null;
+
+    // Declaring and Initializing servos
+    public Servo    clawServo   = null;
+
 
     // Declaring and Initializing hardware map
     HardwareMap ConceptHWMap        = null;
@@ -41,8 +44,9 @@ public class HWMap {
         rightDrive  =   ConceptHWMap.get(DcMotor.class, "right_drive");
         upperArm    =   ConceptHWMap.get(DcMotor.class, "upper_arm");
         foreArm     =   ConceptHWMap.get(DcMotor.class, "fore_arm");
-        armMotor1   =   ConceptHWMap.get(DcMotor.class, "arm_motor1");
-        armMotor2   =   ConceptHWMap.get(DcMotor.class, "arm_motor2");
+
+        // Define and Initialize Servos
+        clawServo   =   ConceptHWMap.get(Servo.class, "claw_servo");
 
         // Sets direction of motor power
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -53,8 +57,9 @@ public class HWMap {
         rightDrive.setPower(0);
         upperArm.setPower(0);
         foreArm.setPower(0);
-        armMotor1.setPower(0);
-        armMotor2.setPower(0);
+
+        // Set all servos to position zero (0)
+        clawServo.setPosition(0);
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
@@ -62,7 +67,5 @@ public class HWMap {
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         upperArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         foreArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        armMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }

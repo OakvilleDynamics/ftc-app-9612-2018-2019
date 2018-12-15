@@ -46,18 +46,6 @@ public class DriveOpMode extends OpMode {
         robot.leftDrive.setPower(left);
         robot.rightDrive.setPower(right);
 
-        // Use gamepad left & right Bumpers to open and close the claw
-        // Current hardware config we do not have a claw, however there is plans
-        // to add an arm sooner or later, so this code segment will be left in but
-        // commented out
-
-        /*
-        if (gamepad1.right_bumper)
-            clawOffset += CLAW_SPEED;
-        else if (gamepad1.left_bumper)
-            clawOffset -= CLAW_SPEED;
-        */
-
         // Arm controls
 
         // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
@@ -85,27 +73,16 @@ public class DriveOpMode extends OpMode {
         }
 
         // Use gamepad buttons to move the armMotor1 up (dpad up) and down (dpad down)
+        //If the servos do not work as planned blame Ryan for his input
         if (gamepad1.dpad_up) {
-            robot.armMotor1.setPower(robot.ARM_UP_POWER);
+            robot.clawServo.setPosition(1);
             armMotor1Val = true;
         } else if (gamepad1.dpad_down) {
-            robot.armMotor1.setPower(robot.ARM_DOWN_POWER);
+            robot.clawServo.setPosition(-1);
             armMotor1Val = true;
         } else {
-            robot.armMotor1.setPower(0);
+            robot.clawServo.setPosition(0);
             armMotor1Val = false;
-        }
-
-        // Use gamepad buttons to move the armMotor2 up (Y) and down (A)
-        if (gamepad1.y) {
-            robot.armMotor2.setPower(robot.ARM_UP_POWER);
-            armMotor2Val = true;
-        } else if (gamepad1.a) {
-            robot.armMotor2.setPower(robot.ARM_DOWN_POWER);
-            armMotor2Val = true;
-        } else {
-            robot.armMotor2.setPower(0);
-            armMotor2Val = false;
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
@@ -114,8 +91,7 @@ public class DriveOpMode extends OpMode {
         telemetry.addData("right", "%.2f", right);
         telemetry.addData("upper arm", "%.2f", upperArmVal);
         telemetry.addData("forearm ", "%.2f", foreArmVal);
-        telemetry.addData("armMotor1", "%.2f", armMotor1Val);
-        telemetry.addData("armMotor2", "%.2f", armMotor2Val);
+        telemetry.addData("claw servo", "%.2f", robot.clawServo.getPosition());
     }
 
     // Runs when robot is stopped (no longer running opmode)
@@ -125,8 +101,7 @@ public class DriveOpMode extends OpMode {
         robot.rightDrive.setPower(0);
         robot.upperArm.setPower(0);
         robot.foreArm.setPower(0);
-        robot.armMotor1.setPower(0);
-        robot.armMotor2.setPower(0);
+        robot.clawServo.setPosition(0);
 
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
     }
