@@ -83,12 +83,14 @@ public class DriveOpMode extends OpMode {
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
+        /*
         telemetry.addData("ROBOT STATUS:", "Not on fire");
         telemetry.addData("left", "%.2f", left);
         telemetry.addData("right", "%.2f", right);
-        telemetry.addData("upper arm", "%.2f", upperArmVal);
-        telemetry.addData("forearm ", "%.2f", foreArmVal);
-        telemetry.addData("claw servo", "going to burn out");
+        telemetry.addData("upper arm", "NOT TRACKING");
+        telemetry.addData("forearm ", "NOT TRACKING");
+        telemetry.addData("claw servo", "NOT TRACKING");
+        */
     }
 
     // Runs when robot is stopped (no longer running opmode)
