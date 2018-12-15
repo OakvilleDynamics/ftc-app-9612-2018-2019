@@ -43,8 +43,8 @@ public class DriveOpMode extends OpMode {
         left = -gamepad1.left_stick_y;
         right = -gamepad1.right_stick_y;
 
-        robot.leftDrive.setPower(left);
-        robot.rightDrive.setPower(right);
+        robot.leftDrive.setPower(-(left));
+        robot.rightDrive.setPower(-(right);
 
         // Arm controls
 
@@ -73,7 +73,7 @@ public class DriveOpMode extends OpMode {
         }
 
         // Use gamepad buttons to move the clawServo up (dpad up) and down (dpad down)
-        //If the servos do not work as planned blame Ryan for his input
+        // If the servos do not work as planned blame Ryan for his input
         if (gamepad2.dpad_up) {
             robot.clawServo.setPosition(0);
         } else if (gamepad2.dpad_down) {
@@ -81,6 +81,7 @@ public class DriveOpMode extends OpMode {
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
+        // TO DO: fix the telemetry issues with formatting
         /*
         telemetry.addData("ROBOT STATUS:", "Not on fire");
         telemetry.addData("left", "%.2f", left);
