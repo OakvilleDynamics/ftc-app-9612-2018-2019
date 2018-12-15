@@ -35,7 +35,7 @@ public class DriveOpMode extends OpMode {
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     @Override
     public void loop() {
-        boolean foreArmVal, upperArmVal, armMotor1Val, armMotor2Val;
+        //boolean foreArmVal, upperArmVal, armMotor1Val, armMotor2Val;
         double left;
         double right;
 
@@ -51,35 +51,33 @@ public class DriveOpMode extends OpMode {
         // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
         if (gamepad2.right_bumper) {
             robot.upperArm.setPower(robot.ARM_UP_POWER);
-            upperArmVal = true;
+            //upperArmVal = true;
         } else if (gamepad2.left_bumper) {
             robot.upperArm.setPower(robot.ARM_DOWN_POWER);
-            upperArmVal = true;
+            //upperArmVal = true;
         } else {
             robot.upperArm.setPower(0.0);
-            upperArmVal = false;
+            //upperArmVal = false;
         }
 
         // Use gamepad buttons to move the forearm up (right trigger) and down (left trigger)
         if (gamepad2.right_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_UP_POWER);
-            foreArmVal = true;
+            //foreArmVal = true;
         } else if (gamepad2.left_trigger > 0.25) {
             robot.foreArm.setPower(robot.ARM_DOWN_POWER);
-            foreArmVal = true;
+            //foreArmVal = true;
         } else {
             robot.foreArm.setPower(0.0);
-            foreArmVal = false;
+            //foreArmVal = false;
         }
 
         // Use gamepad buttons to move the clawServo up (dpad up) and down (dpad down)
         //If the servos do not work as planned blame Ryan for his input
         if (gamepad2.dpad_up) {
-            robot.clawServo.setPosition(1);
-        } else if (gamepad2.dpad_down) {
-            robot.clawServo.setPosition(-1);
-        } else {
             robot.clawServo.setPosition(0);
+        } else if (gamepad2.dpad_down) {
+            robot.clawServo.setPosition(1);
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
