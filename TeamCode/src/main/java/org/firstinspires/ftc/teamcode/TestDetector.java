@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.DogeCVDetector;
 import com.disnodeteam.dogecv.filters.DogeCVColorFilter;
+import com.disnodeteam.dogecv.filters.HSVRangeFilter;
 import com.disnodeteam.dogecv.filters.LeviColorFilter;
 import com.disnodeteam.dogecv.scoring.MaxAreaScorer;
 import com.disnodeteam.dogecv.scoring.PerfectAreaScorer;
@@ -19,11 +20,7 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Victo on 9/10/2018.
- */
-
-public class GenericDetector extends DogeCVDetector {
+public class TestDetector extends DogeCVDetector {
 
     // Defining Mats to be used.
     private Mat displayMat = new Mat(); // Display debug info to the screen (this is what is returned)
@@ -39,18 +36,17 @@ public class GenericDetector extends DogeCVDetector {
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
 
     //Create the default filters and scorers
-    public DogeCVColorFilter colorFilter       = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW); //Default Yellow filter
+    public DogeCVColorFilter goldFilter       = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW); //Default Yellow filter
+    public DogeCVColorFilter silverFilter     = new HSVRangeFilter(new Scalar(0,0,200), new Scalar(50,40,255));
 
     public RatioScorer       ratioScorer       = new RatioScorer(1.0, 3);          // Used to find perfect squares
     public MaxAreaScorer     maxAreaScorer     = new MaxAreaScorer( 0.01);                    // Used to find largest objects
     public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000,0.05); // Used to find objects near a tuned area value
 
-    /**
-     * Simple constructor
-     */
-    public GenericDetector() {
+    public TestDetector() {
         super();
-        detectorName = "Generic Detector"; // Set the detector name
+        detectorName = "GoldSilver Detector"; // Set the detector name
+        System.err.println("WARNING: THIS IS NOT A FINAL PRODUCT AND WILL GREATLY CHANGE, DO NOT USE FOR COMPETITION!");
     }
 
 
@@ -65,7 +61,8 @@ public class GenericDetector extends DogeCVDetector {
 
         //Preprocess the working Mat (blur it then apply a color filter)
         Imgproc.GaussianBlur(workingMat,workingMat,new Size(5,5),0);
-        colorFilter.process(workingMat.clone(),mask      );
+        goldFilter.process(workingMat.clone(),mask      );
+        silverFilter.process(workingMat.clone(),mask    );
 
         //Find contours of the yellow mask and draw them to the display mat for viewing
 
