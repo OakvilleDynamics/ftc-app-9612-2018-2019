@@ -8,24 +8,24 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HWMap {
 
     // Declaring and Initializing motors
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  upperArm    = null;
-    public DcMotor  foreArm     = null;
+    public DcMotor leftDrive = null;
+    public DcMotor rightDrive = null;
+    public DcMotor upperArm = null;
+    public DcMotor foreArm = null;
 
     // Declaring and Initializing servos
-    public Servo    clawServo   = null;
+    public Servo clawServo = null;
 
 
     // Declaring and Initializing hardware map
-    HardwareMap ConceptHWMap        = null;
-    private ElapsedTime timePeriod  = new ElapsedTime();
+    HardwareMap ConceptHWMap = null;
+    private ElapsedTime timePeriod = new ElapsedTime();
 
     // Arm speed values
     // While this does not actually set the speed of the motors, this does set the
     // variable to a value we can use in an OpMode when the time comes
-    double ARM_UP_POWER     =  0.35;
-    double ARM_DOWN_POWER   = -0.35;
+    double ARM_UP_POWER = 0.35;
+    double ARM_DOWN_POWER = -0.35;
 
     // Constructor class
     // This is used to create an object that can be used by other classes and can take in input
@@ -40,13 +40,13 @@ public class HWMap {
         ConceptHWMap = ahwMap;
 
         // Define and Initialize Motors
-        leftDrive   =   ConceptHWMap.get(DcMotor.class, "left_drive");
-        rightDrive  =   ConceptHWMap.get(DcMotor.class, "right_drive");
-        upperArm    =   ConceptHWMap.get(DcMotor.class, "upper_arm");
-        foreArm     =   ConceptHWMap.get(DcMotor.class, "fore_arm");
+        leftDrive = ConceptHWMap.get(DcMotor.class, "left_drive");
+        rightDrive = ConceptHWMap.get(DcMotor.class, "right_drive");
+        upperArm = ConceptHWMap.get(DcMotor.class, "upper_arm");
+        foreArm = ConceptHWMap.get(DcMotor.class, "fore_arm");
 
         // Define and Initialize Servos
-        clawServo   =   ConceptHWMap.get(Servo.class, "claw_servo");
+        clawServo = ConceptHWMap.get(Servo.class, "claw_servo");
 
         // Sets direction of motor power
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
