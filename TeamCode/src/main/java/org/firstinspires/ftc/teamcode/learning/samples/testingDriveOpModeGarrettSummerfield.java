@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.learning.samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "TestingDriveOpMode", group = "Testing Tutorial")
-public class testingDriveOpMode extends OpMode {
+public class testingDriveOpModeGarrettSummerfield extends OpMode {
 
-    testingHWMap robot = new testingHWMap();
+    TestingHWMapCalebFrillman robot = new TestingHWMapCalebFrillman();
 
     @Override
     public void init() {
@@ -34,4 +34,6 @@ public class testingDriveOpMode extends OpMode {
         robot.leftDrive.setPower(-(left));
         robot.rightDrive.setPower(-(right));
     }
+
+
 }

@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.learning.samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp(name = "Drive", group = "TestingTutorial")
-public class TestingDriveOpModeConnor extends OpMode {
+public class TestingDriveOpModeConnorFrillman extends OpMode {
 
-    HwMapConnor robot = new HwMapConnor();
+    HwMapConnorBuneta robot = new HwMapConnorBuneta();
 
     //lol i have no clue what im doing
     @Override

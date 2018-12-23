@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.learning.samples;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class testingHWMap {
+public class testingHWMapConnorBuneta {
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
 
     HardwareMap testingHWMap = null;
 
-    public testingHWMap() {
+    public testingHWMapConnorBuneta() {
 
     }
 
