@@ -25,6 +25,13 @@ import java.util.List;
 
 public class GoldAlignDetector extends DogeCVDetector {
 
+    /**
+     * TODO:
+     *  - DOCUMENTATION
+     *  - CLEANUP OF CODE
+     *  - LOGGING
+     */
+
     // Defining Mats to be used.
     private Mat displayMat = new Mat(); // Display debug info to the screen (this is what is returned)
     private Mat workingMat = new Mat(); // Used for pre-processing and working with (blurring as an example)

@@ -10,6 +10,14 @@ import static android.os.SystemClock.sleep;
 @Autonomous(name = "Autonomous OpenCV Test", group = "Autonomous")
 public class AutonomousOpenCV extends OpMode {
 
+    /**
+     * TODO:
+     *  - DOCUMENTATION
+     *  - CLEANUP OF CODE
+     *  - TELEMETRY
+     *  - LOGGING
+     */
+    
     HWMap robot = new HWMap();
 
     GoldAlignDetector goldDetector = new GoldAlignDetector();
@@ -72,6 +80,16 @@ public class AutonomousOpenCV extends OpMode {
             robot.rightDrive.setPower(1);
         }
 
+        if (silverPos < 160) {
+            robot.leftDrive.setPower(1);
+            robot.rightDrive.setPower(-1);
+        } else if (silverPos > 160) {
+            robot.leftDrive.setPower(-1);
+            robot.rightDrive.setPower(1);
+        } else {
+            robot.leftDrive.setPower(1);
+            robot.rightDrive.setPower(1);
+        }
         sleep(1000);
 
         robot.leftDrive.setPower(1);
