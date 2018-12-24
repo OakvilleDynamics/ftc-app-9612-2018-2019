@@ -13,7 +13,7 @@ public class AutonomousOpenCV extends OpMode {
     HWMap robot = new HWMap();
 
     GoldAlignDetector goldDetector = new GoldAlignDetector();
-    SilverDetector silverDetector = new SilverDetector();
+    SilverAlignDetector silverDetector = new SilverAlignDetector();
 
     double goldPos, silverPos = 0;
 
@@ -23,16 +23,24 @@ public class AutonomousOpenCV extends OpMode {
 
         goldDetector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
         silverDetector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
-        goldDetector.useDefaults();
 
-        goldDetector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
-        //goldDetector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
+        goldDetector.useDefaults();
+        silverDetector.useDefaults();
+
+        goldDetector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA;
+        silverDetector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA;
+
         goldDetector.maxAreaScorer.weight = 0.005;
+        silverDetector.maxAreaScorer.weight = 0.005;
 
         goldDetector.ratioScorer.weight = 5;
         goldDetector.ratioScorer.perfectRatio = 1.0;
 
+        silverDetector.ratioScorer.weight = 5;
+        silverDetector.ratioScorer.perfectRatio = 1.0;
+
         goldDetector.enable();
+        silverDetector.enable();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -51,7 +59,7 @@ public class AutonomousOpenCV extends OpMode {
     @Override
     public void loop() {
         goldPos = goldDetector.getXPosition();
-
+        silverPos = silverDetector.getXPosition();
 
         if (goldPos < 160) {
             robot.leftDrive.setPower(1);

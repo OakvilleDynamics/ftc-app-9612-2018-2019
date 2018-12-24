@@ -182,10 +182,6 @@ public class SilverAlignDetector extends DogeCVDetector {
     }
 
     /**
-     * Returns gold element last x-position
-     * @return last x-position in screen pixels of gold element
-     */
-    /**
      * Returns the silver element's last position in screen pixels
      *
      * @return position in screen pixels
@@ -195,10 +191,20 @@ public class SilverAlignDetector extends DogeCVDetector {
     }
 
     /**
+     * Returns silver element last x-position
+     *
+     * @return last x-position in screen pixels of gold element
+     */
+    public double getXPosition() {
+        return silverXPos;
+    }
+
+    /**
      * Returns the silver element's found rectangle
      *
      * @return silver element rect
      */
+
     public Rect getFoundRect() {
         return foundRect;
     }
