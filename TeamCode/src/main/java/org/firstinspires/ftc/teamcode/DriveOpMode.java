@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "Drive Mode", group = "Concept")
+@TeleOp(name = "Drive Mode", group = "Mr. Muscles DriveOp")
 public class DriveOpMode extends OpMode {
 
     // Call Hardware Map
@@ -18,27 +18,31 @@ public class DriveOpMode extends OpMode {
 
         // Send telemetry message to signify robot is initialized
         telemetry.addData("ROBOT STATUS", "INITIALIZED");
+        telemetry.update();
     }
 
     // Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
     @Override
     public void init_loop() {
         telemetry.addData("ROBOT STATUS", "READY");
+        telemetry.update();
     }
 
-    // Runs code when the driver hits PLAY button
+    // Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
     @Override
     public void start() {
         telemetry.addData("ROBOT STATUS", "RUNNING");
+        telemetry.update();
     }
 
-    // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+    // Code to run REPEATEDLY after the driver hits PLAY but before the driver hits STOP
     @Override
     public void loop() {
         //boolean foreArmVal, upperArmVal, armMotor1Val, armMotor2Val;
         double left;
         double right;
 
+        // -- Robot Movement --
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = -gamepad1.left_stick_y;
         right = -gamepad1.right_stick_y;
@@ -46,8 +50,7 @@ public class DriveOpMode extends OpMode {
         robot.leftDrive.setPower(-(left));
         robot.rightDrive.setPower(-(right));
 
-        // Arm controls
-
+        // -- Arm controls --
         // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
         if (gamepad2.right_bumper) {
             robot.upperArm.setPower(robot.ARM_UP_POWER);
@@ -89,18 +92,22 @@ public class DriveOpMode extends OpMode {
         telemetry.addData("upper arm", "NOT TRACKING");
         telemetry.addData("forearm ", "NOT TRACKING");
         telemetry.addData("claw servo", "NOT TRACKING");
+        telemetry.update();
         */
     }
 
     // Runs when robot is stopped (no longer running opmode)
     @Override
     public void stop() {
+        // Kill all motors and set all servos to position '0'
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
         robot.upperArm.setPower(0);
         robot.foreArm.setPower(0);
         robot.clawServo.setPosition(0);
 
+        // Telemetry
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
+        telemetry.update();
     }
 }
