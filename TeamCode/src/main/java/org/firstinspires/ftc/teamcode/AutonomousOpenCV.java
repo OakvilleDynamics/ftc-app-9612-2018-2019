@@ -5,6 +5,9 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.detectors.GoldAlignDetector;
+import org.firstinspires.ftc.teamcode.detectors.SilverAlignDetector;
+
 import static android.os.SystemClock.sleep;
 
 @Autonomous(name = "Autonomous OpenCV Test", group = "Mr.Muscles Autonomous")

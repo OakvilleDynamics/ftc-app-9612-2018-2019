@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.detectors;
 
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.DogeCVDetector;
 import com.disnodeteam.dogecv.filters.DogeCVColorFilter;
-import com.disnodeteam.dogecv.filters.LeviColorFilter;
+import com.disnodeteam.dogecv.filters.HSVRangeFilter;
 import com.disnodeteam.dogecv.scoring.MaxAreaScorer;
 import com.disnodeteam.dogecv.scoring.PerfectAreaScorer;
 import com.disnodeteam.dogecv.scoring.RatioScorer;
@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Victo on 9/17/2018.
+ * Created by Victo on 9/10/2018.
  */
 
-public class GoldAlignDetector extends DogeCVDetector {
+public class SilverAlignDetector extends DogeCVDetector {
 
     /**
      * TODO:
@@ -35,13 +35,15 @@ public class GoldAlignDetector extends DogeCVDetector {
     // Defining Mats to be used.
     private Mat displayMat = new Mat(); // Display debug info to the screen (this is what is returned)
     private Mat workingMat = new Mat(); // Used for pre-processing and working with (blurring as an example)
-    private Mat maskYellow = new Mat(); // Yellow Mask returned by color filter
+    private Mat maskWhite = new Mat(); // White Mask returned by color filter
     private Mat hierarchy = new Mat(); // hierarchy used by contours
 
     // Results of the detector
-    private boolean found = false; // Is the gold mineral found
-    private boolean aligned = false; // Is the gold mineral aligned
-    private double goldXPos = 0;     // X Position (in pixels) of the gold element
+    private boolean found = false; // Is the silver mineral found
+    private boolean aligned = false; // Is the silver mineral aligned
+    private Point screenPosition = new Point(); // Screen position of the mineral
+    private Rect foundRect = new Rect(); // Found rect
+    private double silverXPos = 0;
 
     // Detector settings
     public boolean debugAlignment = true; // Show debug lines to show alignment settings
@@ -50,9 +52,8 @@ public class GoldAlignDetector extends DogeCVDetector {
 
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
 
-
     //Create the default filters and scorers
-    public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW); //Default Yellow filter
+    public DogeCVColorFilter whiteFilter = new HSVRangeFilter(new Scalar(0, 0, 200), new Scalar(50, 40, 255));
 
     public RatioScorer ratioScorer = new RatioScorer(1.0, 3);          // Used to find perfect squares
     public MaxAreaScorer maxAreaScorer = new MaxAreaScorer(0.01);                    // Used to find largest objects
@@ -61,9 +62,9 @@ public class GoldAlignDetector extends DogeCVDetector {
     /**
      * Simple constructor
      */
-    public GoldAlignDetector() {
+    public SilverAlignDetector() {
         super();
-        detectorName = "Gold Align Detector"; // Set the detector name
+        detectorName = "Silver Align Detector"; // Set the detector name
     }
 
 
@@ -76,14 +77,14 @@ public class GoldAlignDetector extends DogeCVDetector {
         input.release();
 
 
-        //Pre-process the working Mat (blur it then apply a yellow filter)
+        //Pre-process the working Mat (blur it then apply a white filter)
         Imgproc.GaussianBlur(workingMat, workingMat, new Size(5, 5), 0);
-        yellowFilter.process(workingMat.clone(), maskYellow);
+        whiteFilter.process(workingMat.clone(), maskWhite);
 
         //Find contours of the yellow mask and draw them to the display mat for viewing
 
         List<MatOfPoint> contoursYellow = new ArrayList<>();
-        Imgproc.findContours(maskYellow, contoursYellow, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(maskWhite, contoursYellow, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
         Imgproc.drawContours(displayMat, contoursYellow, -1, new Scalar(230, 70, 70), 2);
 
         // Current result
@@ -109,7 +110,7 @@ public class GoldAlignDetector extends DogeCVDetector {
         double alignX = (getAdjustedSize().width / 2) + alignPosOffset; // Center point in X Pixels
         double alignXMin = alignX - (alignSize / 2); // Min X Pos in pixels
         double alignXMax = alignX + (alignSize / 2); // Max X pos in pixels
-        double xPos; // Current Gold X Pos
+        double xPos; // Current Silver X Pos
 
         if (bestRect != null) {
             // Show chosen result
@@ -118,10 +119,9 @@ public class GoldAlignDetector extends DogeCVDetector {
 
             // Set align X pos
             xPos = bestRect.x + (bestRect.width / 2);
-            goldXPos = xPos;
+            silverXPos = xPos;
 
-            // Draw center point
-            Imgproc.circle(displayMat, new Point(xPos, bestRect.y + (bestRect.height / 2)), 5, new Scalar(0, 255, 0), 2);
+            Imgproc.circle(displayMat, new Point(xPos, bestRect.y + (bestRect.height / 2)), 5, new Scalar(0, 255, 0));
 
             // Check if the mineral is aligned
             if (xPos < alignXMax && xPos > alignXMin) {
@@ -130,26 +130,23 @@ public class GoldAlignDetector extends DogeCVDetector {
                 aligned = false;
             }
 
-            // Draw Current X
-            Imgproc.putText(displayMat, "Current X: " + bestRect.x, new Point(10, getAdjustedSize().height - 10), 0, 0.5, new Scalar(255, 255, 255), 1);
+            screenPosition = new Point(bestRect.x, bestRect.y);
+            foundRect = bestRect;
             found = true;
         } else {
             found = false;
             aligned = false;
         }
+
         if (debugAlignment) {
-
-            //Draw debug alignment info
             if (isFound()) {
-                Imgproc.line(displayMat, new Point(goldXPos, getAdjustedSize().height), new Point(goldXPos, getAdjustedSize().height - 30), new Scalar(255, 255, 0), 2);
+                Imgproc.line(displayMat, new Point(silverXPos, getAdjustedSize().height), new Point(silverXPos, getAdjustedSize().height - 30), new Scalar(255, 255, 0), 2);
             }
-
             Imgproc.line(displayMat, new Point(alignXMin, getAdjustedSize().height), new Point(alignXMin, getAdjustedSize().height - 40), new Scalar(0, 255, 0), 2);
             Imgproc.line(displayMat, new Point(alignXMax, getAdjustedSize().height), new Point(alignXMax, getAdjustedSize().height - 40), new Scalar(0, 255, 0), 2);
         }
-
         //Print result
-        Imgproc.putText(displayMat, "Result: " + aligned, new Point(10, getAdjustedSize().height - 30), 0, 1, new Scalar(255, 255, 0), 1);
+        Imgproc.putText(displayMat, "Result: " + screenPosition.x + "/" + screenPosition.y, new Point(10, getAdjustedSize().height - 30), 0, 1, new Scalar(255, 255, 0), 1);
 
 
         return displayMat;
@@ -192,18 +189,37 @@ public class GoldAlignDetector extends DogeCVDetector {
     }
 
     /**
-     * Returns gold element last x-position
+     * Returns the silver element's last position in screen pixels
+     *
+     * @return position in screen pixels
+     */
+    public Point getScreenPosition() {
+        return screenPosition;
+    }
+
+    /**
+     * Returns silver element last x-position
      *
      * @return last x-position in screen pixels of gold element
      */
     public double getXPosition() {
-        return goldXPos;
+        return silverXPos;
     }
 
     /**
-     * Returns if a gold mineral is being tracked/detected
+     * Returns the silver element's found rectangle
      *
-     * @return if a gold mineral is being tracked/detected
+     * @return silver element rect
+     */
+
+    public Rect getFoundRect() {
+        return foundRect;
+    }
+
+    /**
+     * Returns if a silver mineral is being tracked/detected
+     *
+     * @return if a silver mineral is being tracked/detected
      */
     public boolean isFound() {
         return found;
