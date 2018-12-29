@@ -3,23 +3,20 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class HWMap {
 
     // Declaring and Initializing motors
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  upperArm    = null;
-    public DcMotor  foreArm     = null;
+    public DcMotor  leftFrontDrive  = null;
+    public DcMotor  rightFrontDrive = null;
+    public DcMotor  leftRearDrive   = null;
+    public DcMotor  rightRearDrive  = null;
 
     // Declaring and Initializing servos
     public Servo    clawServo   = null;
-
-
+    
     // Declaring and Initializing hardware map
-    HardwareMap ConceptHWMap        = null;
-    private ElapsedTime timePeriod  = new ElapsedTime();
+    HardwareMap omniHWMap        = null;
 
     // Arm speed values
     // While this does not actually set the speed of the motors, this does set the
@@ -37,35 +34,35 @@ public class HWMap {
     // Initialize standard Hardware interfaces
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
-        ConceptHWMap = ahwMap;
+        omniHWMap = ahwMap;
 
         // Define and Initialize Motors
-        leftDrive   =   ConceptHWMap.get(DcMotor.class, "left_drive");
-        rightDrive  =   ConceptHWMap.get(DcMotor.class, "right_drive");
-        upperArm    =   ConceptHWMap.get(DcMotor.class, "upper_arm");
-        foreArm     =   ConceptHWMap.get(DcMotor.class, "fore_arm");
+        leftFrontDrive   =   omniHWMap.get(DcMotor.class, "leftFDrive");
+        rightFrontDrive  =   omniHWMap.get(DcMotor.class, "rightFDrive");
+        leftRearDrive    =   omniHWMap.get(DcMotor.class, "leftRDrive");
+        rightRearDrive   =   omniHWMap.get(DcMotor.class, "rightRDrive");
 
         // Define and Initialize Servos
-        clawServo   =   ConceptHWMap.get(Servo.class, "claw_servo");
+        clawServo   =   omniHWMap.get(Servo.class, "claw_servo");
 
         // Sets direction of motor power
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        upperArm.setPower(0);
-        foreArm.setPower(0);
+        leftFrontDrive.setPower(0);
+        rightFrontDrive.setPower(0);
+        leftRearDrive.setPower(0);
+        rightRearDrive.setPower(0);
 
         // Set all servos to position zero (0)
         clawServo.setPosition(0);
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        upperArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        foreArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
