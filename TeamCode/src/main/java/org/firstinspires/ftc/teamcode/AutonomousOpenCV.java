@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.detectors.GoldAlignDetector;
@@ -10,13 +11,15 @@ import org.firstinspires.ftc.teamcode.detectors.SilverAlignDetector;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "Autonomous OpenCV Test", group = "Mr.Muscles Autonomous")
+@Autonomous(name = "Autonomous OpenCV Test", group = "Mr. Muscles Autonomous")
+@Disabled
 public class AutonomousOpenCV extends OpMode {
 
     /**
      * TODO:
      * - TELEMETRY
      * - LOGGING
+     * - FIXING DRIVE
      */
     // Call Hardware Map
     HWMap robot = new HWMap();
@@ -88,6 +91,12 @@ public class AutonomousOpenCV extends OpMode {
     // Code to run REPEATEDLY after the driver hits PLAY but before the driver hits STOP
     @Override
     public void loop() {
+        /**
+         * This right now is continuously having issues with our new drive, this should be resolved
+         * when I figure out the changes needed to make this work out as smoothly as I can possibly
+         * make it
+         *
+         * For now, to not use this OpMode in this current form
         // Set variables to getXPosition of respected minerals
         goldPos = goldDetector.getXPosition();
         silverPos = silverDetector.getXPosition();
@@ -139,18 +148,18 @@ public class AutonomousOpenCV extends OpMode {
         // Disable mineral detectors
         goldDetector.disable();
         silverDetector.disable();
-
+        */
     }
 
     // Runs when robot is stopped (no longer running opmode)
     @Override
     public void stop() {
         // Kill all motors and set all servos to position '0'
-        robot.leftDrive.setPower(0);
-        robot.rightDrive.setPower(0);
-        robot.upperArm.setPower(0);
-        robot.foreArm.setPower(0);
-        robot.clawServo.setPosition(0);
+        //robot.leftDrive.setPower(0);
+        //robot.rightDrive.setPower(0);
+        //robot.upperArm.setPower(0);
+        //robot.foreArm.setPower(0);
+        //robot.clawServo.setPosition(0);
 
         // Telemetry
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
