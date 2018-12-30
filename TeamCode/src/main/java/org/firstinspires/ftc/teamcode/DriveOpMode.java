@@ -38,73 +38,50 @@ public class DriveOpMode extends OpMode {
     // Code to run REPEATEDLY after the driver hits PLAY but before the driver hits STOP
     @Override
     public void loop() {
-        //boolean foreArmVal, upperArmVal, armMotor1Val, armMotor2Val;
-        double left;
-        double right;
+        // Declare variables for wheels
+        double leftFront, rightFront, leftRear, rightRear;
+        // Declare variables for calculating omni-wheel
+        double leftY, leftX, rightX;
 
-        // -- Robot Movement --
-        // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
+        // Initialize calculating variables
+        leftY = gamepad1.left_stick_y;
+        leftX = gamepad1.left_stick_x;
+        rightX = gamepad1.right_stick_x;
 
-        robot.leftDrive.setPower(-(left));
-        robot.rightDrive.setPower(-(right));
+        // Run wheels in omniwheel orientation
+        leftFront = leftY + leftX - rightX;
+        rightFront = leftY - leftX + rightX;
+        leftRear = leftY - leftX - rightX;
+        rightRear = leftY + leftX + rightX;
 
-        // -- Arm controls --
-        // Use gamepad buttons to move the upper arm up (right bumper) and down (left bumper)
-        if (gamepad2.right_bumper) {
-            robot.upperArm.setPower(robot.ARM_UP_POWER);
-            //upperArmVal = true;
-        } else if (gamepad2.left_bumper) {
-            robot.upperArm.setPower(robot.ARM_DOWN_POWER);
-            //upperArmVal = true;
-        } else {
-            robot.upperArm.setPower(0.0);
-            //upperArmVal = false;
-        }
-
-        // Use gamepad buttons to move the forearm up (right trigger) and down (left trigger)
-        if (gamepad2.right_trigger > 0.25) {
-            robot.foreArm.setPower(robot.ARM_UP_POWER);
-            //foreArmVal = true;
-        } else if (gamepad2.left_trigger > 0.25) {
-            robot.foreArm.setPower(robot.ARM_DOWN_POWER);
-            //foreArmVal = true;
-        } else {
-            robot.foreArm.setPower(0.0);
-            //foreArmVal = false;
-        }
-
-        // Use gamepad buttons to move the clawServo up (dpad up) and down (dpad down)
-        // If the servos do not work as planned blame Ryan for his input
-        if (gamepad2.dpad_up) {
-            robot.clawServo.setPosition(0);
-        } else if (gamepad2.dpad_down) {
-            robot.clawServo.setPosition(1);
-        }
+        // Motor controls
+        robot.leftFrontDrive.setPower(leftFront);
+        robot.rightFrontDrive.setPower(rightFront);
+        robot.leftRearDrive.setPower(leftRear);
+        robot.rightRearDrive.setPower(rightRear);
 
         // Send telemetry messages to signify robot running and whats actively going on
-        // TO DO: fix the telemetry issues with formatting
-        /*
         telemetry.addData("ROBOT STATUS:", "Not on fire");
-        telemetry.addData("left", "%.2f", left);
-        telemetry.addData("right", "%.2f", right);
-        telemetry.addData("upper arm", "NOT TRACKING");
-        telemetry.addData("forearm ", "NOT TRACKING");
-        telemetry.addData("claw servo", "NOT TRACKING");
+        telemetry.addLine("Values for controller")
+                .addData("leftY", leftX)
+                .addData("leftX", leftY)
+                .addData("rightX",rightX);
+        telemetry.addLine("Values for motors")
+                .addData("leftFront", leftFront)
+                .addData("rightFront", rightFront)
+                .addData("leftRear", leftRear)
+                .addData("rightRear", rightRear);
         telemetry.update();
-        */
     }
 
     // Runs when robot is stopped (no longer running opmode)
     @Override
     public void stop() {
-        // Kill all motors and set all servos to position '0'
-        robot.leftDrive.setPower(0);
-        robot.rightDrive.setPower(0);
-        robot.upperArm.setPower(0);
-        robot.foreArm.setPower(0);
-        robot.clawServo.setPosition(0);
+        robot.leftFrontDrive.setPower(0);
+        robot.rightFrontDrive.setPower(0);
+        robot.leftRearDrive.setPower(0);
+        robot.rightRearDrive.setPower(0);
+
 
         // Telemetry
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
