@@ -28,14 +28,14 @@ public class DriveOpMode extends OpMode {
         telemetry.update();
     }
 
-    // Runs code when the driver hits PLAY button
+    // Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
     @Override
     public void start() {
         telemetry.addData("ROBOT STATUS", "RUNNING");
         telemetry.update();
     }
 
-    // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+    // Code to run REPEATEDLY after the driver hits PLAY but before the driver hits STOP
     @Override
     public void loop() {
         // Declare variables for wheels
@@ -72,7 +72,6 @@ public class DriveOpMode extends OpMode {
                 .addData("leftRear", leftRear)
                 .addData("rightRear", rightRear);
         telemetry.update();
-
     }
 
     // Runs when robot is stopped (no longer running opmode)
@@ -83,6 +82,8 @@ public class DriveOpMode extends OpMode {
         robot.leftRearDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
 
+
+        // Telemetry
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
         telemetry.update();
     }
