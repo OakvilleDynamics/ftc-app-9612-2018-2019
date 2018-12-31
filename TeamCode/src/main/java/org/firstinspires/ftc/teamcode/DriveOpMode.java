@@ -42,13 +42,21 @@ public class DriveOpMode extends OpMode {
         double leftFront, rightFront, leftRear, rightRear;
         // Declare variables for calculating omni-wheel
         double leftY, leftX, rightX;
+        // Declare variables for servos
+        double servoFront, servoLeft, servoRight, servoBack;
+
+        // Find servo values from the controller
+        servoFront = robot.paddleFront.getPosition();
+        servoRight = robot.paddleRight.getPosition();
+        servoLeft = robot.paddleLeft.getPosition();
+        servoBack = robot.paddleBack.getPosition();
 
         // Initialize calculating variables
         leftY = gamepad1.left_stick_y;
         leftX = gamepad1.left_stick_x;
         rightX = gamepad1.right_stick_x;
 
-        // Run wheels in omniwheel orientation
+        // Run wheels in omni-wheel orientation
         leftFront = leftY + leftX - rightX;
         rightFront = leftY - leftX + rightX;
         leftRear = leftY - leftX - rightX;
@@ -60,17 +68,44 @@ public class DriveOpMode extends OpMode {
         robot.leftRearDrive.setPower(leftRear);
         robot.rightRearDrive.setPower(rightRear);
 
+        // Paddle controls
+        // Controls are as follows:
+        // DPad up is paddleFront
+        // DPad left is paddleLeft
+        // DPad right is paddleRight
+        // DPad down is paddleBack
+        // If nothing meets requirements it all goes back to pos '0'
+        if (gamepad1.dpad_up == true) {
+            robot.paddleFront.setPosition(90);
+        } else if (gamepad1.dpad_left == true) {
+            robot.paddleLeft.setPosition(90);
+        } else if (gamepad1.dpad_right == true) {
+            robot.paddleRight.setPosition(90);
+        } else if (gamepad1.dpad_down == true) {
+            robot.paddleBack.setPosition(90);
+        } else {
+            robot.paddleFront.setPosition(0);
+            robot.paddleLeft.setPosition(0);
+            robot.paddleRight.setPosition(0);
+            robot.paddleBack.setPosition(0);
+        }
+
         // Send telemetry messages to signify robot running and whats actively going on
         telemetry.addData("ROBOT STATUS:", "Not on fire");
         telemetry.addLine("Values for controller")
                 .addData("leftY", leftX)
                 .addData("leftX", leftY)
-                .addData("rightX",rightX);
+                .addData("rightX", rightX);
         telemetry.addLine("Values for motors")
                 .addData("leftFront", leftFront)
                 .addData("rightFront", rightFront)
                 .addData("leftRear", leftRear)
                 .addData("rightRear", rightRear);
+        telemetry.addLine("Values for Servos")
+                .addData("paddleFront", servoFront)
+                .addData("paddleLeft", servoLeft)
+                .addData("paddleRight", servoRight)
+                .addData("paddleBack", servoBack);
         telemetry.update();
     }
 
@@ -81,7 +116,6 @@ public class DriveOpMode extends OpMode {
         robot.rightFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
-
 
         // Telemetry
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
