@@ -62,19 +62,21 @@ public class DriveOpMode extends OpMode {
         leftRear = leftY - leftX - rightX;
         rightRear = leftY + leftX + rightX;
 
-        // Motor controls
+        // -! CONTROLS !-
+        // -- Motor controls --
         robot.leftFrontDrive.setPower(leftFront);
         robot.rightFrontDrive.setPower(rightFront);
         robot.leftRearDrive.setPower(leftRear);
         robot.rightRearDrive.setPower(rightRear);
 
-        // Paddle controls
-        // Controls are as follows:
-        // DPad up is paddleFront
-        // DPad left is paddleLeft
-        // DPad right is paddleRight
-        // DPad down is paddleBack
-        // If nothing meets requirements it all goes back to pos '0'
+        /** -- Paddle controls --
+         * Controls are as follows for the paddles:
+         * - DPad up is paddleFront
+         * - DPad left is paddleLeft
+         * - DPad right is paddleRight
+         * - DPad down is paddleBack
+         * If nothing is pressed, return paddles to pos '0'
+         */
         if (gamepad1.dpad_up == true) {
             robot.paddleFront.setPosition(90);
         } else if (gamepad1.dpad_left == true) {
@@ -112,12 +114,19 @@ public class DriveOpMode extends OpMode {
     // Runs when robot is stopped (no longer running opmode)
     @Override
     public void stop() {
+        // Kill all motors
         robot.leftFrontDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
 
-        // Telemetry
+        // Return all motors to pos '0'
+        robot.paddleFront.setPosition(0);
+        robot.paddleLeft.setPosition(0);
+        robot.paddleRight.setPosition(0);
+        robot.paddleBack.setPosition(0);
+
+        // Telemetry updates to signify opmode status
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
         telemetry.update();
     }

@@ -21,9 +21,11 @@ public class HWMap {
     // Declaring and Initializing hardware map
     HardwareMap omniHWMap = null;
 
-    // Arm speed values
-    // While this does not actually set the speed of the motors, this does set the
-    // variable to a value we can use in an OpMode when the time comes
+    // -- Arm speed values --
+    // While this does not actually set the speed of the motors for arm control, this does set a
+    // variable to a value we can use in an OpMode when the time comes, as this is what we can use
+    // for speed control so we do not damage the robot in the process of having the robot arm swing
+    // down and hit itself
     double ARM_UP_POWER_VAL = 0.35;
     double ARM_DOWN_POWER_VAL = -0.35;
 
@@ -57,7 +59,7 @@ public class HWMap {
         leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
         rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        // Set all motors to zero power
+        // Set all motors to zero power (0)
         leftFrontDrive.setPower(0);
         rightFrontDrive.setPower(0);
         leftRearDrive.setPower(0);
