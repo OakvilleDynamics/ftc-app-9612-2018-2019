@@ -46,15 +46,15 @@ public class DriveOpMode extends OpMode {
         double servoFront, servoLeft, servoRight, servoBack;
 
         // Find servo values from the controller
-        servoFront = robot.paddleFront.getPosition();
+        //servoFront = robot.paddleFront.getPosition();
         servoRight = robot.paddleRight.getPosition();
-        servoLeft = robot.paddleLeft.getPosition();
-        servoBack = robot.paddleBack.getPosition();
+        //servoLeft = robot.paddleLeft.getPosition();
+        //servoBack = robot.paddleBack.getPosition();
 
         // Initialize calculating variables
-        leftY = gamepad1.left_stick_y;
+        leftY = -gamepad1.left_stick_y;
         leftX = gamepad1.left_stick_x;
-        rightX = gamepad1.right_stick_x;
+        rightX = -gamepad1.right_stick_x;
 
         // Run wheels in omni-wheel orientation
         leftFront = leftY + leftX - rightX;
@@ -71,43 +71,31 @@ public class DriveOpMode extends OpMode {
 
         /** -- Paddle controls --
          * Controls are as follows for the paddles:
+         * All controls are only on gamepad2
          * - DPad up is paddleFront
          * - DPad left is paddleLeft
          * - DPad right is paddleRight
          * - DPad down is paddleBack
          * If nothing is pressed, return paddles to pos '0'
          */
-        if (gamepad1.dpad_up == true) {
-            robot.paddleFront.setPosition(90);
-        } else if (gamepad1.dpad_left == true) {
-            robot.paddleLeft.setPosition(90);
-        } else if (gamepad1.dpad_right == true) {
-            robot.paddleRight.setPosition(90);
-        } else if (gamepad1.dpad_down == true) {
-            robot.paddleBack.setPosition(90);
-        } else {
-            robot.paddleFront.setPosition(0);
-            robot.paddleLeft.setPosition(0);
+
+        if (gamepad2.dpad_up == true) {
+            //robot.paddleFront.setPosition(90);
+        } else if (gamepad2.dpad_left == true) {
+            //robot.paddleLeft.setPosition(90);
+        } else if (gamepad2.dpad_right == true) {
             robot.paddleRight.setPosition(0);
-            robot.paddleBack.setPosition(0);
+        } else if (gamepad2.dpad_down == true) {
+            //robot.paddleBack.setPosition(90);
+        } else {
+            //robot.paddleFront.setPosition(0);
+            //robot.paddleLeft.setPosition(0);
+            robot.paddleRight.setPosition(0.4);
+            //robot.paddleBack.setPosition(0);
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
         telemetry.addData("ROBOT STATUS:", "Not on fire");
-        telemetry.addLine("Values for controller")
-                .addData("leftY", leftX)
-                .addData("leftX", leftY)
-                .addData("rightX", rightX);
-        telemetry.addLine("Values for motors")
-                .addData("leftFront", leftFront)
-                .addData("rightFront", rightFront)
-                .addData("leftRear", leftRear)
-                .addData("rightRear", rightRear);
-        telemetry.addLine("Values for Servos")
-                .addData("paddleFront", servoFront)
-                .addData("paddleLeft", servoLeft)
-                .addData("paddleRight", servoRight)
-                .addData("paddleBack", servoBack);
         telemetry.update();
     }
 
@@ -121,10 +109,10 @@ public class DriveOpMode extends OpMode {
         robot.rightRearDrive.setPower(0);
 
         // Return all motors to pos '0'
-        robot.paddleFront.setPosition(0);
-        robot.paddleLeft.setPosition(0);
+        //robot.paddleFront.setPosition(0);
+        //robot.paddleLeft.setPosition(0);
         robot.paddleRight.setPosition(0);
-        robot.paddleBack.setPosition(0);
+        //robot.paddleBack.setPosition(0);
 
         // Telemetry updates to signify opmode status
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");

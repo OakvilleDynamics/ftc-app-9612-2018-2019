@@ -13,10 +13,10 @@ public class HWMap {
     public DcMotor rightRearDrive = null;
 
     // Declaring and Initializing servos
-    public Servo paddleFront = null;
-    public Servo paddleLeft = null;
+    //public Servo paddleFront = null;
+    //public Servo paddleLeft = null;
     public Servo paddleRight = null;
-    public Servo paddleBack = null;
+    //public Servo paddleBack = null;
 
     // Declaring and Initializing hardware map
     HardwareMap omniHWMap = null;
@@ -48,10 +48,10 @@ public class HWMap {
         rightRearDrive = omniHWMap.get(DcMotor.class, "rightRDrive");
 
         // Define and Initialize Servos
-        paddleFront = omniHWMap.get(Servo.class, "paddleFront");
-        paddleLeft = omniHWMap.get(Servo.class, "paddleLeft");
+        //paddleFront = omniHWMap.get(Servo.class, "paddleFront");
+        //paddleLeft = omniHWMap.get(Servo.class, "paddleLeft");
         paddleRight = omniHWMap.get(Servo.class, "paddleRight");
-        paddleBack = omniHWMap.get(Servo.class, "paddleBack");
+        //paddleBack = omniHWMap.get(Servo.class, "paddleBack");
 
         // Sets direction of motor power
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -66,10 +66,10 @@ public class HWMap {
         rightRearDrive.setPower(0);
 
         // Set all servos to position zero (0)
-        paddleFront.setPosition(0);
-        paddleLeft.setPosition(0);
+        //paddleFront.setPosition(0);
+        //paddleLeft.setPosition(0);
         paddleRight.setPosition(0);
-        paddleBack.setPosition(0);
+        //paddleBack.setPosition(0);
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
