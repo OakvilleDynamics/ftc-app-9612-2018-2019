@@ -6,14 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.detectors.GoldAlignDetector;
-import org.firstinspires.ftc.teamcode.detectors.SilverAlignDetector;
-
-import static android.os.SystemClock.sleep;
+import org.firstinspires.ftc.teamcode.opencvdetectors.GoldAlignDetector;
+import org.firstinspires.ftc.teamcode.opencvdetectors.SilverAlignDetector;
 
 @Autonomous(name = "Autonomous OpenCV Test", group = "Mr. Muscles Autonomous")
 @Disabled
-public class AutonomousOpenCV extends OpMode {
+public class AutonomousOpenCVOpMode extends OpMode {
 
     /**
      * TODO:
