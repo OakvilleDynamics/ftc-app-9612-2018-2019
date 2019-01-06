@@ -64,13 +64,8 @@ public class DebuggingOpMode extends OpMode {
         leftRear = leftY - leftX - rightX;
         rightRear = leftY + leftX + rightX;
 
-        while (true){
-            robot.leftFrontDrive.setPower(0.25);
-        }
-
         // -! CONTROLS !-
         // -- Motor controls --
-        /*
         robot.leftFrontDrive.setPower(leftFront);
         robot.rightFrontDrive.setPower(rightFront);
         robot.leftRearDrive.setPower(leftRear);
@@ -84,8 +79,7 @@ public class DebuggingOpMode extends OpMode {
          * - DPad right is paddleRight
          * - DPad down is paddleBack
          * If nothing is pressed, return paddles to pos '0'
-
-
+         */
 
         if (gamepad2.dpad_up == true) {
             robot.paddleFront.setPosition(90);
@@ -121,7 +115,6 @@ public class DebuggingOpMode extends OpMode {
         telemetry.update();
     }
 
-
     // Runs when robot is stopped (no longer running opmode)
     @Override
     public void stop() {
@@ -140,6 +133,5 @@ public class DebuggingOpMode extends OpMode {
         // Telemetry updates to signify opmode status
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
         telemetry.update();
-        */
     }
 }
