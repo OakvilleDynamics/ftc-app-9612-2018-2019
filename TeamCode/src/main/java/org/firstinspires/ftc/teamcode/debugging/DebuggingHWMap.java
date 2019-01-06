@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.debugging;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class HWMap {
+public class DebuggingHWMap {
 
     // Declaring and Initializing motors
     public DcMotor leftFrontDrive = null;
@@ -19,7 +19,7 @@ public class HWMap {
     public Servo paddleBack = null;
 
     // Declaring and Initializing hardware map
-    HardwareMap omniHWMap = null;
+    HardwareMap debuggingHWMap = null;
 
     // -- Arm speed values --
     // While this does not actually set the speed of the motors for arm control, this does set a
@@ -32,26 +32,26 @@ public class HWMap {
     // Constructor class
     // This is used to create an object that can be used by other classes and can take in input
     // from other classes, for instance such as our OpMode
-    public HWMap() {
+    public DebuggingHWMap() {
 
     }
 
     // Initialize standard Hardware interfaces
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
-        omniHWMap = ahwMap;
+        debuggingHWMap = ahwMap;
 
         // Define and Initialize Motors
-        leftFrontDrive = omniHWMap.get(DcMotor.class, "leftFDrive");
-        rightFrontDrive = omniHWMap.get(DcMotor.class, "rightFDrive");
-        leftRearDrive = omniHWMap.get(DcMotor.class, "leftRDrive");
-        rightRearDrive = omniHWMap.get(DcMotor.class, "rightRDrive");
+        leftFrontDrive = debuggingHWMap.get(DcMotor.class, "leftFDrive");
+        rightFrontDrive = debuggingHWMap.get(DcMotor.class, "rightFDrive");
+        leftRearDrive = debuggingHWMap.get(DcMotor.class, "leftRDrive");
+        rightRearDrive = debuggingHWMap.get(DcMotor.class, "rightRDrive");
 
         // Define and Initialize Servos
-        paddleFront = omniHWMap.get(Servo.class, "paddleFront");
-        paddleLeft = omniHWMap.get(Servo.class, "paddleLeft");
-        paddleRight = omniHWMap.get(Servo.class, "paddleRight");
-        paddleBack = omniHWMap.get(Servo.class, "paddleBack");
+        paddleFront = debuggingHWMap.get(Servo.class, "paddleFront");
+        paddleLeft = debuggingHWMap.get(Servo.class, "paddleLeft");
+        paddleRight = debuggingHWMap.get(Servo.class, "paddleRight");
+        paddleBack = debuggingHWMap.get(Servo.class, "paddleBack");
 
         // Sets direction of motor power
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
