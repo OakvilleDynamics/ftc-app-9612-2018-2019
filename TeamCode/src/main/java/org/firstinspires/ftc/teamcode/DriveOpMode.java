@@ -45,12 +45,6 @@ public class DriveOpMode extends OpMode {
         // Declare variables for servos
         double servoFront, servoLeft, servoRight, servoBack;
 
-        // Find servo values from the controller
-        //servoFront = robot.paddleFront.getPosition();
-        servoRight = robot.paddleRight.getPosition();
-        //servoLeft = robot.paddleLeft.getPosition();
-        //servoBack = robot.paddleBack.getPosition();
-
         // Initialize calculating variables
         leftY = -gamepad1.left_stick_y;
         leftX = gamepad1.left_stick_x;
@@ -80,18 +74,18 @@ public class DriveOpMode extends OpMode {
          */
 
         if (gamepad2.dpad_up == true) {
-            //robot.paddleFront.setPosition(90);
+            robot.paddleFront.setPosition(0);
         } else if (gamepad2.dpad_left == true) {
-            //robot.paddleLeft.setPosition(90);
+            robot.paddleLeft.setPosition(0);
         } else if (gamepad2.dpad_right == true) {
             robot.paddleRight.setPosition(0);
         } else if (gamepad2.dpad_down == true) {
-            //robot.paddleBack.setPosition(90);
+            robot.paddleBack.setPosition(0);
         } else {
-            //robot.paddleFront.setPosition(0);
-            //robot.paddleLeft.setPosition(0);
+            robot.paddleFront.setPosition(0.4);
+            robot.paddleLeft.setPosition(0.4);
             robot.paddleRight.setPosition(0.4);
-            //robot.paddleBack.setPosition(0);
+            robot.paddleBack.setPosition(0.4);
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
@@ -109,10 +103,10 @@ public class DriveOpMode extends OpMode {
         robot.rightRearDrive.setPower(0);
 
         // Return all motors to pos '0'
-        //robot.paddleFront.setPosition(0);
-        //robot.paddleLeft.setPosition(0);
-        robot.paddleRight.setPosition(0);
-        //robot.paddleBack.setPosition(0);
+        robot.paddleFront.setPosition(0.4);
+        robot.paddleLeft.setPosition(0.4);
+        robot.paddleRight.setPosition(0.4);
+        robot.paddleBack.setPosition(0.4);
 
         // Telemetry updates to signify opmode status
         telemetry.addData("ROBOT STATUS:", "Stopped, OpMode killed by user");
