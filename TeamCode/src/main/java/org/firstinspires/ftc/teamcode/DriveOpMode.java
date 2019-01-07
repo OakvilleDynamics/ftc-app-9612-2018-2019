@@ -52,10 +52,19 @@ public class DriveOpMode extends OpMode {
         rightStickX = gamepad1.right_stick_x;
 
         // Run wheels in omni-wheel orientation
-        leftFront = leftStickY - leftStickX - rightStickX;
+        leftFront = leftStickY - leftStickX + rightStickX;
         rightFront = leftStickY + leftStickX + rightStickX;
-        leftRear = leftStickY + leftStickX - rightStickX;
-        rightRear = leftStickY - leftStickX + rightStickX;
+        leftRear = -leftStickY - leftStickX + rightStickX;
+        rightRear = -leftStickY + leftStickX + rightStickX;
+
+        // Rotate clockwise = All positive
+        // Rotate counter-clockwise = All negative
+        // Move forward = backs negative  fronts positive
+        // Move backward = backs positive  fronts negative
+        // Move left = rights negative  lefts positive
+        // Move right = rights positive  lefts negative
+
+
 
         // Scale the values because values can be larger than on
         leftFrontScale = Range.clip(leftFront, -1,1);
