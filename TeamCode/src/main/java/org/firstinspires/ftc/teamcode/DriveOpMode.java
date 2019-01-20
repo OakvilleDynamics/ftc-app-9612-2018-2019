@@ -53,9 +53,9 @@ public class DriveOpMode extends OpMode {
 
         // Run wheels in omni-wheel orientation
         //leftFront = leftStickY - leftStickX + rightStickX;
-        rightFront = leftStickY + leftStickX + rightStickX;
-        leftRear = -leftStickY - leftStickX + rightStickX;
-        rightRear = -leftStickY + leftStickX + rightStickX;
+        rightFront = - leftStickY - leftStickX + rightStickX;
+        leftRear = leftStickY + leftStickX + rightStickX;
+        rightRear = - leftStickY + leftStickX + rightStickX;
 
         // Rotate clockwise = All positive
         // Rotate counter-clockwise = All negative
@@ -87,13 +87,13 @@ public class DriveOpMode extends OpMode {
          * If nothing is pressed, return paddles to pos '0'
          */
 
-        if (gamepad2.dpad_up == true) {
+        if (gamepad2.y == true) {
             robot.paddleFront.setPosition(0);
-        } else if (gamepad2.dpad_left == true) {
+        } else if (gamepad2.x == true) {
             robot.paddleLeft.setPosition(0);
-        } else if (gamepad2.dpad_right == true) {
+        } else if (gamepad2.b == true) {
             robot.paddleRight.setPosition(0);
-        } else if (gamepad2.dpad_down == true) {
+        } else if (gamepad2.a == true) {
             robot.paddleBack.setPosition(0);
         } else {
             robot.paddleFront.setPosition(0.4);

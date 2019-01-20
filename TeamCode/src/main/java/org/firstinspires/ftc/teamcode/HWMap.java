@@ -56,9 +56,9 @@ public class HWMap {
 
         // Sets direction of motor power
         //leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power (0)
         //leftFrontDrive.setPower(0);
@@ -67,10 +67,10 @@ public class HWMap {
         rightRearDrive.setPower(0);
 
         // Set all servos to position zero (0)
-        paddleFront.setPosition(0);
-        paddleLeft.setPosition(0);
-        paddleRight.setPosition(0);
-        paddleBack.setPosition(0);
+        paddleFront.setPosition(0.4);
+        paddleLeft.setPosition(0.4);
+        paddleRight.setPosition(0.4);
+        paddleBack.setPosition(0.4);
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
