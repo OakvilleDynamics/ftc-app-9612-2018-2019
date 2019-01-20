@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.opencvdetectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.opencvdetectors.SilverAlignDetector;
 
+import static java.lang.Thread.sleep;
+
 @Autonomous(name = "Autonomous OpenCV Test", group = "Mr. Muscles Autonomous")
 @Disabled
 public class AutonomousOpenCVOpMode extends OpMode {
@@ -89,72 +91,76 @@ public class AutonomousOpenCVOpMode extends OpMode {
     // Code to run REPEATEDLY after the driver hits PLAY but before the driver hits STOP
     @Override
     public void loop() {
-        /**
-         * This right now is continuously having issues with our new drive, this should be resolved
-         * when I figure out the changes needed to make this work out as smoothly as I can possibly
-         * make it
-         *
-         * For now, to not use this OpMode in this current form
         // Set variables to getXPosition of respected minerals
         goldPos = goldDetector.getXPosition();
         silverPos = silverDetector.getXPosition();
 
         // -- Gold Mineral logic detection --
         // If goldPos is less than the value of '160'...
+        /*
         if (goldPos < 160) {
             // Turn left
-            robot.leftDrive.setPower(1);
-            robot.rightDrive.setPower(-1);
+            robot.leftFrontDrive.setPower(1);
+            robot.rightFrontDrive.setPower(-1);
             // If goldPos is more than the value of '400'...
         } else if (goldPos > 400) {
             // Turn right
-            robot.leftDrive.setPower(-1);
-            robot.rightDrive.setPower(1);
+            robot.leftFrontDrive.setPower(-1);
+            robot.rightFrontDrive.setPower(1);
             // If nothing else fits within the parameters
         } else {
             // Drive forward
-            robot.leftDrive.setPower(1);
-            robot.rightDrive.setPower(1);
+            robot.leftFrontDrive.setPower(1);
+            robot.rightFrontDrive.setPower(1);
         }
 
         // -- Silver Mineral logic detection --
         // If silverPos is less than the value of '160'...
         if (silverPos < 160) {
             // Turn left
-            robot.leftDrive.setPower(1);
-            robot.rightDrive.setPower(-1);
+            robot.leftFrontDrive.setPower(1);
+            robot.rightFrontDrive.setPower(-1);
             // If silverPos is more than the value of '400'...
         } else if (silverPos > 160) {
-            robot.leftDrive.setPower(-1);
-            robot.rightDrive.setPower(1);
+            robot.leftFrontDrive.setPower(-1);
+            robot.rightFrontDrive.setPower(1);
             // If nothing else fits within the parameters
         } else {
             // Drive forward
-            robot.leftDrive.setPower(1);
-            robot.rightDrive.setPower(1);
+            robot.leftFrontDrive.setPower(1);
+            robot.rightFrontDrive.setPower(1);
         }
         // Stop moving for '1000' ms
-        sleep(1000);
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Drive forward
-        robot.leftDrive.setPower(1);
-        robot.rightDrive.setPower(1);
+        robot.leftFrontDrive.setPower(1);
+        robot.rightFrontDrive.setPower(1);
 
         // Stop moving for '1000' ms
-        sleep(1000);
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            telemetry.addData("ROBOT STATUS", "ERROR");
+            e.printStackTrace();
+        }
+        */
 
         // Disable mineral detectors
         goldDetector.disable();
         silverDetector.disable();
-        */
     }
 
     // Runs when robot is stopped (no longer running opmode)
     @Override
     public void stop() {
         // Kill all motors and set all servos to position '0'
-        //robot.leftDrive.setPower(0);
-        //robot.rightDrive.setPower(0);
+        //robot.leftFrontDrive.setPower(0);
+        //robot.rightFrontDrive.setPower(0);
         //robot.upperArm.setPower(0);
         //robot.foreArm.setPower(0);
         //robot.clawServo.setPosition(0);

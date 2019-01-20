@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode.debugging;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class DebuggingHWMap {
 
+
     // Declaring and Initializing motors
-    public DcMotor leftFrontDrive = null;
+    //public DcMotor leftFrontDrive = null;
     public DcMotor rightFrontDrive = null;
     public DcMotor leftRearDrive = null;
     public DcMotor rightRearDrive = null;
@@ -19,7 +21,7 @@ public class DebuggingHWMap {
     public Servo paddleBack = null;
 
     // Declaring and Initializing hardware map
-    HardwareMap debuggingHWMap = null;
+    HardwareMap omniHWMap = null;
 
     // -- Arm speed values --
     // While this does not actually set the speed of the motors for arm control, this does set a
@@ -39,28 +41,28 @@ public class DebuggingHWMap {
     // Initialize standard Hardware interfaces
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
-        debuggingHWMap = ahwMap;
+        omniHWMap = ahwMap;
 
         // Define and Initialize Motors
-        leftFrontDrive = debuggingHWMap.get(DcMotor.class, "leftFDrive");
-        rightFrontDrive = debuggingHWMap.get(DcMotor.class, "rightFDrive");
-        leftRearDrive = debuggingHWMap.get(DcMotor.class, "leftRDrive");
-        rightRearDrive = debuggingHWMap.get(DcMotor.class, "rightRDrive");
+        rightFrontDrive = omniHWMap.get(DcMotor.class, "rightFDrive");
+        //leftFrontDrive = omniHWMap.get(DcMotor.class, "leftFDrive");
+        rightRearDrive = omniHWMap.get(DcMotor.class, "rightRDrive");
+        leftRearDrive = omniHWMap.get(DcMotor.class, "leftRDrive");
 
         // Define and Initialize Servos
-        paddleFront = debuggingHWMap.get(Servo.class, "paddleFront");
-        paddleLeft = debuggingHWMap.get(Servo.class, "paddleLeft");
-        paddleRight = debuggingHWMap.get(Servo.class, "paddleRight");
-        paddleBack = debuggingHWMap.get(Servo.class, "paddleBack");
+        paddleFront = omniHWMap.get(Servo.class, "paddleFront");
+        paddleLeft = omniHWMap.get(Servo.class, "paddleLeft");
+        paddleRight = omniHWMap.get(Servo.class, "paddleRight");
+        paddleBack = omniHWMap.get(Servo.class, "paddleBack");
 
         // Sets direction of motor power
-        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
+        //leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftRearDrive.setDirection(DcMotor.Direction.FORWARD);
         rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power (0)
-        leftFrontDrive.setPower(0);
+        //leftFrontDrive.setPower(0);
         rightFrontDrive.setPower(0);
         leftRearDrive.setPower(0);
         rightRearDrive.setPower(0);
@@ -73,9 +75,9 @@ public class DebuggingHWMap {
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
-        leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
