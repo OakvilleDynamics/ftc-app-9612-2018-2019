@@ -40,7 +40,7 @@ public class DriveOpMode extends OpMode {
     @Override
     public void loop() {
         // Declare variables for wheels in total
-        double leftFront, rightFront, leftRear, rightRear;
+        double rightFront, leftRear, rightRear;
         // Declare variables fpr wheels in scaled input
         double leftFrontScale, rightFrontScale, leftRearScale, rightRearScale;
         // Declare variables for calculating omni-wheel
@@ -52,7 +52,7 @@ public class DriveOpMode extends OpMode {
         rightStickX = gamepad1.right_stick_x;
 
         // Run wheels in omni-wheel orientation
-        leftFront = leftStickY - leftStickX + rightStickX;
+        //leftFront = leftStickY - leftStickX + rightStickX;
         rightFront = leftStickY + leftStickX + rightStickX;
         leftRear = -leftStickY - leftStickX + rightStickX;
         rightRear = -leftStickY + leftStickX + rightStickX;
@@ -64,17 +64,15 @@ public class DriveOpMode extends OpMode {
         // Move left = rights negative  lefts positive
         // Move right = rights positive  lefts negative
 
-
-
         // Scale the values because values can be larger than on
-        leftFrontScale = Range.clip(leftFront, -1,1);
+        //leftFrontScale = Range.clip(leftFront, -1,1);
         rightFrontScale = Range.clip(rightFront, -1,1);
         leftRearScale = Range.clip(leftRear,-1,1);
         rightRearScale = Range.clip(rightRear, -1, 1);
 
         // -! CONTROLS !-
         // -- Motor controls --
-        robot.leftFrontDrive.setPower(leftFrontScale);
+        //robot.leftFrontDrive.setPower(leftFrontScale);
         robot.rightFrontDrive.setPower(rightFrontScale);
         robot.leftRearDrive.setPower(leftRearScale);
         robot.rightRearDrive.setPower(rightRearScale);
@@ -113,7 +111,7 @@ public class DriveOpMode extends OpMode {
     @Override
     public void stop() {
         // Kill all motors
-        robot.leftFrontDrive.setPower(0);
+        //robot.leftFrontDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
