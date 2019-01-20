@@ -56,8 +56,8 @@ public class DebuggingOpMode extends OpMode {
         // Run wheels in omni-wheel orientation
         //leftFront = leftStickY - leftStickX + rightStickX;
         rightFront = leftStickY + leftStickX + rightStickX;
-        leftRear = leftStickY - leftStickX - rightStickX;
-        rightRear = leftStickY + leftStickX + rightStickX;
+        leftRear = leftStickY + leftStickX - rightStickX;
+        rightRear = leftStickY -leftStickX + rightStickX;
 
         // Rotate clockwise = All positive
         // Rotate counter-clockwise = All negative
