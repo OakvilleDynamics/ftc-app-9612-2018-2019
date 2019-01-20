@@ -97,6 +97,7 @@ public class AutonomousOpenCVOpMode extends OpMode {
 
         // -- Gold Mineral logic detection --
         // If goldPos is less than the value of '160'...
+        /*
         if (goldPos < 160) {
             // Turn left
             robot.leftFrontDrive.setPower(1);
@@ -147,6 +148,7 @@ public class AutonomousOpenCVOpMode extends OpMode {
             telemetry.addData("ROBOT STATUS", "ERROR");
             e.printStackTrace();
         }
+        */
 
         // Disable mineral detectors
         goldDetector.disable();

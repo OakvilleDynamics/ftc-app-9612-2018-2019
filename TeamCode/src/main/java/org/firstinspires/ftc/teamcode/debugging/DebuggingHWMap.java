@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.debugging;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -56,9 +57,9 @@ public class DebuggingHWMap {
 
         // Sets direction of motor power
         //leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power (0)
         //leftFrontDrive.setPower(0);

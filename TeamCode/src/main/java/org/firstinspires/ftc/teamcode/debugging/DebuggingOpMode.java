@@ -56,8 +56,8 @@ public class DebuggingOpMode extends OpMode {
         // Run wheels in omni-wheel orientation
         //leftFront = leftStickY - leftStickX + rightStickX;
         rightFront = leftStickY + leftStickX + rightStickX;
-        leftRear = -leftStickY - leftStickX + rightStickX;
-        rightRear = -leftStickY + leftStickX + rightStickX;
+        leftRear = leftStickY - leftStickX - rightStickX;
+        rightRear = leftStickY + leftStickX + rightStickX;
 
         // Rotate clockwise = All positive
         // Rotate counter-clockwise = All negative
@@ -89,19 +89,19 @@ public class DebuggingOpMode extends OpMode {
          * If nothing is pressed, return paddles to pos '0'
          */
 
-        if (gamepad2.dpad_up == true) {
-            robot.paddleFront.setPosition(0);
-        } else if (gamepad2.dpad_left == true) {
-            robot.paddleLeft.setPosition(0);
-        } else if (gamepad2.dpad_right == true) {
-            robot.paddleRight.setPosition(0);
-        } else if (gamepad2.dpad_down == true) {
-            robot.paddleBack.setPosition(0);
-        } else {
+        if (gamepad2.y == true) {
             robot.paddleFront.setPosition(0.4);
+        } else if (gamepad2.x == true) {
             robot.paddleLeft.setPosition(0.4);
+        } else if (gamepad2.b == true) {
             robot.paddleRight.setPosition(0.4);
+        } else if (gamepad2.a == true) {
             robot.paddleBack.setPosition(0.4);
+        } else {
+            robot.paddleFront.setPosition(0);
+            robot.paddleLeft.setPosition(0);
+            robot.paddleRight.setPosition(0);
+            robot.paddleBack.setPosition(0);
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
