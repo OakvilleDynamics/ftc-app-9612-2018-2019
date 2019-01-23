@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.debugging;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class HWMap {
+public class DebuggingHWMap {
+
 
     // Declaring and Initializing motors
     //public DcMotor leftFrontDrive = null;
@@ -33,7 +34,7 @@ public class HWMap {
     // Constructor class
     // This is used to create an object that can be used by other classes and can take in input
     // from other classes, for instance such as our OpMode
-    public HWMap() {
+    public DebuggingHWMap() {
 
     }
 
@@ -67,10 +68,10 @@ public class HWMap {
         rightRearDrive.setPower(0);
 
         // Set all servos to position zero (0)
-        paddleFront.setPosition(0.4);
-        paddleLeft.setPosition(0.4);
-        paddleRight.setPosition(0.4);
-        paddleBack.setPosition(0.4);
+        paddleFront.setPosition(0);
+        paddleLeft.setPosition(0);
+        paddleRight.setPosition(0);
+        paddleBack.setPosition(0);
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
