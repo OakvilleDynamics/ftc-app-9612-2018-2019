@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.debugging;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Drive Mode", group = "Hipp0 DriveOp")
-public class DriveOpMode extends OpMode {
+import org.firstinspires.ftc.teamcode.HWMap;
+
+@TeleOp(name = "DEBUGGING MODE // DO NOT USE", group = "Mr. Muscles DEBUGGING")
+public class DebuggingOpMode extends OpMode {
 
     // Call Hardware Map
     HWMap robot = new HWMap();
@@ -53,9 +55,9 @@ public class DriveOpMode extends OpMode {
 
         // Run wheels in omni-wheel orientation
         //leftFront = leftStickY - leftStickX + rightStickX;
-        rightFront = - leftStickY - leftStickX + rightStickX;
-        leftRear = leftStickY + leftStickX + rightStickX;
-        rightRear = - leftStickY + leftStickX + rightStickX;
+        rightFront = leftStickY + leftStickX + rightStickX;
+        leftRear = leftStickY + leftStickX - rightStickX;
+        rightRear = leftStickY -leftStickX + rightStickX;
 
         // Rotate clockwise = All positive
         // Rotate counter-clockwise = All negative
@@ -88,18 +90,18 @@ public class DriveOpMode extends OpMode {
          */
 
         if (gamepad2.y == true) {
-            robot.paddleFront.setPosition(0);
-        } else if (gamepad2.x == true) {
-            robot.paddleLeft.setPosition(0);
-        } else if (gamepad2.b == true) {
-            robot.paddleRight.setPosition(0);
-        } else if (gamepad2.a == true) {
-            robot.paddleBack.setPosition(0);
-        } else {
             robot.paddleFront.setPosition(0.4);
+        } else if (gamepad2.x == true) {
             robot.paddleLeft.setPosition(0.4);
+        } else if (gamepad2.b == true) {
             robot.paddleRight.setPosition(0.4);
+        } else if (gamepad2.a == true) {
             robot.paddleBack.setPosition(0.4);
+        } else {
+            robot.paddleFront.setPosition(0);
+            robot.paddleLeft.setPosition(0);
+            robot.paddleRight.setPosition(0);
+            robot.paddleBack.setPosition(0);
         }
 
         // Send telemetry messages to signify robot running and whats actively going on
