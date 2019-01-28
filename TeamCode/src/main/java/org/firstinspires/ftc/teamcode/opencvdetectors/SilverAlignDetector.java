@@ -124,11 +124,7 @@ public class SilverAlignDetector extends DogeCVDetector {
             Imgproc.circle(displayMat, new Point(xPos, bestRect.y + (bestRect.height / 2)), 5, new Scalar(0, 255, 0));
 
             // Check if the mineral is aligned
-            if (xPos < alignXMax && xPos > alignXMin) {
-                aligned = true;
-            } else {
-                aligned = false;
-            }
+            aligned = xPos < alignXMax && xPos > alignXMin;
 
             screenPosition = new Point(bestRect.x, bestRect.y);
             foundRect = bestRect;
