@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class HWMap {
 
     // Declaring and Initializing motors
+    public DcMotor leftFrontDrive = null;
     public DcMotor rightFrontDrive = null;
     public DcMotor leftRearDrive = null;
     public DcMotor rightRearDrive = null;
@@ -41,6 +43,7 @@ public class HWMap {
         omniHWMap = ahwMap;
 
         // Define and Initialize Motors
+        leftFrontDrive = omniHWMap.get(DcMotor.class, "leftFDrive");
         rightFrontDrive = omniHWMap.get(DcMotor.class, "rightFDrive");
         rightRearDrive = omniHWMap.get(DcMotor.class, "rightRDrive");
         leftRearDrive = omniHWMap.get(DcMotor.class, "leftRDrive");
@@ -52,11 +55,13 @@ public class HWMap {
         paddleBack = omniHWMap.get(Servo.class, "paddleBack");
 
         // Sets direction of motor power
+        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotor.Direction.FORWARD);
         rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power (0)
+        leftFrontDrive.setPower(0);
         rightFrontDrive.setPower(0);
         leftRearDrive.setPower(0);
         rightRearDrive.setPower(0);
@@ -69,8 +74,9 @@ public class HWMap {
 
         // Set all motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
