@@ -7,11 +7,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class HWMap {
 
-    // Declaring and Initializing motors
+    // Declaring and Initializing drive motors
     public DcMotor leftFrontDrive = null;
     public DcMotor rightFrontDrive = null;
     public DcMotor leftRearDrive = null;
     public DcMotor rightRearDrive = null;
+
+    // Declaring and Initializing external motors for other functions
+    public DcMotor armMotor1;
+    public DcMotor armMotor2;
+    public DcMotor rodMotor;
 
     // Declaring and Initializing servos
     public Servo paddleFront = null;
@@ -48,17 +53,27 @@ public class HWMap {
         rightRearDrive = omniHWMap.get(DcMotor.class, "rightRDrive");
         leftRearDrive = omniHWMap.get(DcMotor.class, "leftRDrive");
 
+        // Define and Initialize External Motors and other functions
+        armMotor1 = omniHWMap.get(DcMotor.class, "armBoi1");
+        armMotor2 = omniHWMap.get(DcMotor.class, "armBoi2");
+        rodMotor = omniHWMap.get(DcMotor.class, "rod");
+
         // Define and Initialize Servos
         paddleFront = omniHWMap.get(Servo.class, "paddleFront");
         paddleLeft = omniHWMap.get(Servo.class, "paddleLeft");
         paddleRight = omniHWMap.get(Servo.class, "paddleRight");
         paddleBack = omniHWMap.get(Servo.class, "paddleBack");
 
-        // Sets direction of motor power
+        // Sets direction of motor power for the drive motors
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotor.Direction.FORWARD);
         rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
+
+        // Sets direction of motor power for the external functions
+        armMotor1.setDirection(DcMotor.Direction.FORWARD);
+        armMotor2.setDirection(DcMotor.Direction.FORWARD);
+        rodMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power (0)
         leftFrontDrive.setPower(0);
@@ -72,11 +87,16 @@ public class HWMap {
         paddleRight.setPosition(0.4);
         paddleBack.setPosition(0.4);
 
-        // Set all motors to run without encoders
+        // Set all drive motors to run without encoders
         // May want to use RUN_USING_ENCODERS if encoders are installed
         leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        // Set all external  to run to position for use in Autonomous
+        armMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION;
+        rodMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }

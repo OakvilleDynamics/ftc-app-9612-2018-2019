@@ -64,8 +64,8 @@ public class DriveOpMode extends OpMode {
         leftRearScale = Range.clip(leftRear,-1,1);
         rightRearScale = Range.clip(rightRear, -1, 1);
 
-        // -! CONTROLS !-
-        /** -- Motor controls --
+        /** -! CONTROLS !-
+         * -- Motor controls --
          * Rotate clockwise = All positive
          * Rotate counter-clockwise = All negative
          * Move forward = backs negative  fronts positive
@@ -73,6 +73,7 @@ public class DriveOpMode extends OpMode {
          * Move left = rights negative  lefts positive
          * Move right = rights positive  lefts negative
          */
+
         robot.leftFrontDrive.setPower(leftFrontScale);
         robot.rightFrontDrive.setPower(rightFrontScale);
         robot.leftRearDrive.setPower(leftRearScale);
@@ -103,6 +104,24 @@ public class DriveOpMode extends OpMode {
             robot.paddleBack.setPosition(0.4);
         }
 
+        /** -- Arm Controls --
+         * Controls are as follows for the arm
+         * All controls are only on gamepad1
+         * - Left Bumper causes arm to raise arm
+         * - Right Bumper causes arm to lower arm
+         * If nothing is pressed, do nothing
+         */
+
+        if (gamepad1.left_bumper == true) {
+            robot.armMotor1.setPower(robot.ARM_UP_POWER_VAL);
+            robot.armMotor2.setPower(robot.ARM_UP_POWER_VAL);
+        } else if (gamepad1.right_bumper == true) {
+            robot.armMotor1.setPower(robot.ARM_DOWN_POWER_VAL);
+            robot.armMotor2.setPower(robot.ARM_DOWN_POWER_VAL);
+        } else {
+            robot.armMotor1.setPower(0);
+            robot.armMotor2.setPower(0);
+        }
         // Send telemetry messages to signify robot running and whats actively going on
         telemetry.addData("ROBOT STATUS:", "Not on fire");
         telemetry.update();
