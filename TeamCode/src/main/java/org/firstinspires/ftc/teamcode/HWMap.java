@@ -96,7 +96,7 @@ public class HWMap {
 
         // Set all external  to run to position for use in Autonomous
         armMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION;
+        armMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rodMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
