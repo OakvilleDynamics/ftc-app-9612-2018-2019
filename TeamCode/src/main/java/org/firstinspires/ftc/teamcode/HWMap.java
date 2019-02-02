@@ -31,8 +31,8 @@ public class HWMap {
     // variable to a value we can use in an OpMode when the time comes, as this is what we can use
     // for speed control so we do not damage the robot in the process of having the robot arm swing
     // down and hit itself
-    double ARM_UP_POWER_VAL = 0.35;
-    double ARM_DOWN_POWER_VAL = -0.35;
+    double ARM_UP_POWER_VAL = 1;
+    double ARM_DOWN_POWER_VAL = -1;
 
     // Constructor class
     // This is used to create an object that can be used by other classes and can take in input
@@ -65,13 +65,13 @@ public class HWMap {
 
         // Sets direction of motor power for the drive motors
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftRearDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightRearDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Sets direction of motor power for the external functions
         armMotor1.setDirection(DcMotor.Direction.FORWARD);
-        armMotor2.setDirection(DcMotor.Direction.FORWARD);
+        armMotor2.setDirection(DcMotor.Direction.REVERSE);
         rodMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power (0)
@@ -94,8 +94,8 @@ public class HWMap {
         rightRearDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set all external  to run to position for use in Autonomous
-        armMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rodMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
