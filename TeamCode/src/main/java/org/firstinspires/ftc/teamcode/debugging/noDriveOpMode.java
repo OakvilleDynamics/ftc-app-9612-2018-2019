@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.debugging;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "NO Drive Mode // DO NOT USE", group = "Concept")
+@Disabled
 public class noDriveOpMode extends OpMode {
     // Call Hardware Map
     noHWMap robot = new noHWMap();

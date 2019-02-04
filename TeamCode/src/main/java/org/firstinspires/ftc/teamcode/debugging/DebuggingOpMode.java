@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.debugging;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.HWMap;
 
 @TeleOp(name = "DEBUGGING MODE // DO NOT USE", group = "Mr. Muscles DEBUGGING")
+@Disabled
 public class DebuggingOpMode extends OpMode {
 
     // Call Hardware Map
