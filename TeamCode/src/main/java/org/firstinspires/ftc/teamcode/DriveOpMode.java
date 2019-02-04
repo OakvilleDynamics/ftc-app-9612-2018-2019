@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 @TeleOp(name = "Drive Mode", group = "Hipp0 DriveOp")
 public class DriveOpMode extends OpMode {
@@ -60,8 +61,8 @@ public class DriveOpMode extends OpMode {
 
         // Scale the values because values can be larger than on
         leftFrontScale = Range.clip(leftFront, -1, 1);
-        rightFrontScale = Range.clip(rightFront, -1,1);
-        leftRearScale = Range.clip(leftRear,-1,1);
+        rightFrontScale = Range.clip(rightFront, -1, 1);
+        leftRearScale = Range.clip(leftRear, -1, 1);
         rightRearScale = Range.clip(rightRear, -1, 1);
 
         /** -! CONTROLS !-
