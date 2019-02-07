@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@TeleOp(name = "Drive Mode", group = "Hipp0 DriveOp")
+@TeleOp(name = "Drive Mode", group = "Th0r DriveOp")
 public class DriveOpMode extends OpMode {
 
     // Call Hardware Map
