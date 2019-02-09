@@ -76,14 +76,10 @@ public class AutonomousShortOpMode extends LinearOpMode {
         // THIS IS UNTESTED
         // S0: Move lift down
         encoderArm(robot.ARM_DOWN_LOW_POWER_VAL, 2, 5.0);
-        // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(driveSpeed,  48,  48, 5.0);
+        // S1: Backward 2 Inches with 5 Sec timeout
+        encoderDrive(driveSpeed, -2, -2, 5.0);
         // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(turnSpeed,   12, -12, 4.0);
-        // S3: Reverse 24 Inches with 4 Sec timeout
-        encoderDrive(driveSpeed, -24, -24, 4.0);
-        // S4: Drop marker
-        encoderRod(robot.ARM_DOWN_LOW_POWER_VAL, 2, 2.0);
+        encoderDrive(turnSpeed, 2, -2, 10.0);
     }
 
     // Properties to our drive encoder method

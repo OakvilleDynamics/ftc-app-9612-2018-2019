@@ -145,7 +145,7 @@ public class DriveOpMode extends OpMode {
             robot.armMotorSpool.setPower(0);
         }
         // Send telemetry messages to signify robot running and whats actively going on
-        telemetry.addData("ROBOT STATUS:", "Not on fire");
+        telemetry.addData("ROBOT STATUS", "Not on fire");
         telemetry.update();
     }
 
