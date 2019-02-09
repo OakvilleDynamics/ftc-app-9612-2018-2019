@@ -115,16 +115,16 @@ public class DriveOpMode extends OpMode {
 
         /** -- Arm Controls --
          * Controls are as follows for the arm
-         * All controls are only on gamepad1
+         * All controls are only on gamepad2
          * - Left Bumper causes arm to raise arm
          * - Right Bumper causes arm to lower arm
          * If nothing is pressed, do nothing
          */
 
-        if (gamepad1.left_bumper == true) {
+        if (gamepad2.left_bumper == true) {
             robot.armMotor1.setPower(robot.ARM_UP_HIGH_POWER_VAL);
             robot.armMotor2.setPower(robot.ARM_UP_HIGH_POWER_VAL);
-        } else if (gamepad1.right_bumper == true) {
+        } else if (gamepad2.right_bumper == true) {
             robot.armMotor1.setPower(robot.ARM_DOWN_HIGH_POWER_VAL);
             robot.armMotor2.setPower(robot.ARM_DOWN_HIGH_POWER_VAL);
         } else {
@@ -132,14 +132,14 @@ public class DriveOpMode extends OpMode {
             robot.armMotor2.setPower(0);
         }
 
-        /** -- Spool Controls
+        /** -- Spool Controls --
          * Controls are as follows for the arm
-         * All controls are only on gamepad1
+         * All controls are only on gamepad2
          * - Left Trigger causes spool to wind up
          * If nothing is pressed, do nothing
          */
 
-        if (gamepad1.left_trigger > 0.25) {
+        if (gamepad2.left_trigger > 0.25) {
             robot.armMotorSpool.setPower(robot.ARM_UP_LOW_POWER_VAL);
         } else {
             robot.armMotorSpool.setPower(0);
