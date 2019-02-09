@@ -61,10 +61,10 @@ public class DriveOpMode extends OpMode {
         // Move left = rights negative + lefts positive
         // Move right = rights positive + lefts negative
 
-        leftFront = leftStickY + leftStickX - rightStickX;
-        rightFront = leftStickY - leftStickX - rightStickX;
-        leftRear = - leftStickY + leftStickX - rightStickX;
-        rightRear = - leftStickY - leftStickX - rightStickX;
+        leftFront = leftStickY + leftStickX + rightStickX;
+        rightFront = leftStickY - leftStickX + rightStickX;
+        leftRear = - leftStickY + leftStickX + rightStickX;
+        rightRear = - leftStickY - leftStickX + rightStickX;
 
 
         // Scale the values because values can be larger than on
