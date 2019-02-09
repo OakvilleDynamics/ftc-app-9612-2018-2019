@@ -141,7 +141,7 @@ public class AutonomousShortOpMode extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                    (opModeRuntime.seconds() < timeoutS) && (robot.leftFrontDrive.isBusy() && robot.rightFrontDrive.isBusy())) {
+                    (opModeRuntime.seconds() < timeoutS) && (robot.armMotor1.isBusy() && robot.armMotor2.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLiftTarget);
@@ -156,6 +156,46 @@ public class AutonomousShortOpMode extends LinearOpMode {
             // Turn off RUN_TO_POSITION
             robot.armMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.armMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+    }
+    public void encoderRod(double speed, double rodInches, double timeoutS) {
+        int newRodTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newRodTarget = robot.leftFrontDrive.getCurrentPosition() + (int)(rodInches * rodCountsPerInch);
+            robot.rodMotor.setTargetPosition(newRodTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.rodMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            opModeRuntime.reset();
+            robot.rodMotor.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (opModeRuntime.seconds() < timeoutS) && (robot.rodMotor.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", newRodTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d", robot.rodMotor.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.rodMotor.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.rodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 }
