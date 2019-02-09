@@ -83,9 +83,9 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         // S2: Drive left 5 inches with 5 second timeout
         while (opModeIsActive() && (opModeRuntime.seconds() < 2.5)) {
             robot.leftFrontDrive.setPower(0.25);
-            robot.rightFrontDrive.setPower(0.25);
+            robot.rightFrontDrive.setPower(-0.25);
             robot.leftRearDrive.setPower(0.25);
-            robot.rightRearDrive.setPower(0.25);
+            robot.rightRearDrive.setPower(-0.25);
         }
         telemetry.addData("ROBOT STATUS", "TURNING BOT LEFT...");
         telemetry.update();
