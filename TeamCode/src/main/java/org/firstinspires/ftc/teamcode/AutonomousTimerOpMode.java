@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "Long Auto Mode", group = "Th0r Autonomous")
-public class AutonomousLongOpMode extends LinearOpMode {
+@Autonomous(name = "Time Auto Mode // UNTESTED", group = "Th0r Autonomous")
+public class AutonomousTimerOpMode extends LinearOpMode {
 
     // Calling and initializing hardware map
     HWMap robot = new HWMap();
@@ -76,10 +76,24 @@ public class AutonomousLongOpMode extends LinearOpMode {
         // THIS IS UNTESTED
         // S0: Move lift down
         encoderArm(robot.ARM_DOWN_LOW_POWER_VAL, 2, 5.0);
+        telemetry.addData("ROBOT STATUS", "LOWERING BOT...");
+        telemetry.update();
+        sleep(1500);
         // S1: Backward 2 Inches with 5 Sec timeout
-        encoderDrive(driveSpeed, -2, -2, 5.0);
-        // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(turnSpeed, 2, -2, 10.0);
+        encoderDrive(driveSpeed, 2, 2, 5.0);
+        telemetry.addData("ROBOT STATUS", "REVERSING...");
+        telemetry.update();
+        sleep(15000);
+        // S2: Drive left 5 inches with 5 second timeout
+        while (opModeIsActive() && (opModeRuntime.seconds() > 5.0)) {
+            robot.leftFrontDrive.setPower(0.25);
+            robot.rightFrontDrive.setPower(0.25);
+            robot.leftRearDrive.setPower(0.25);
+            robot.rightRearDrive.setPower(0.25);
+        }
+        telemetry.addData("ROBOT STATUS", "TURNING BOT LEFT...");
+        telemetry.update();
+        sleep(1500);
     }
 
     // Properties to our drive encoder method
@@ -125,11 +139,6 @@ public class AutonomousLongOpMode extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (opModeRuntime.seconds() < timeoutS) && (robot.leftFrontDrive.isBusy() && robot.rightFrontDrive.isBusy() && robot.leftRearDrive.isBusy() && robot.rightRearDrive.isBusy())) {
-
-                // Display it for the driver
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftFrontTarget,  newRightFrontTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d", robot.leftFrontDrive.getCurrentPosition(), robot.rightFrontDrive.getCurrentPosition());
-                telemetry.update();
             }
 
             // Stop all motion
@@ -175,11 +184,6 @@ public class AutonomousLongOpMode extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (opModeRuntime.seconds() < timeoutS) && (robot.armMotor1.isBusy() && robot.armMotor2.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLiftTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d", robot.armMotor1.getCurrentPosition(), robot.armMotor2.getCurrentPosition());
-                telemetry.update();
             }
 
             // Stop all motion;
@@ -217,13 +221,7 @@ public class AutonomousLongOpMode extends LinearOpMode {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
-                    (opModeRuntime.seconds() < timeoutS) && (robot.rodMotor.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newRodTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d", robot.rodMotor.getCurrentPosition());
-                telemetry.update();
+            while (opModeIsActive() && (opModeRuntime.seconds() < timeoutS) && (robot.rodMotor.isBusy())) {
             }
 
             // Stop all motion;
