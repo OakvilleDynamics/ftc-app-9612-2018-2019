@@ -53,6 +53,14 @@ public class DriveOpMode extends OpMode {
         rightStickX = gamepad1.right_stick_x;
 
         // Run wheels in omni-wheel orientation
+        // NOTES FOR OUR MATHEMATICS ON THE HOLONOMIC WHEELS
+        // Rotate clockwise = All positive
+        // Rotate counter-clockwise = All negative
+        // Move forward = backs negative + fronts positive
+        // Move backward = backs positive + fronts negative
+        // Move left = rights negative + lefts positive
+        // Move right = rights positive + lefts negative
+
         leftFront = leftStickY + leftStickX - rightStickX;
         rightFront = leftStickY - leftStickX - rightStickX;
         leftRear = - leftStickY + leftStickX - rightStickX;
@@ -65,14 +73,14 @@ public class DriveOpMode extends OpMode {
         leftRearScale = Range.clip(leftRear, -1, 1);
         rightRearScale = Range.clip(rightRear, -1, 1);
 
-        /** -! CONTROLS !-
-         * -- Motor controls --
-         * Rotate clockwise = All positive
-         * Rotate counter-clockwise = All negative
-         * Move forward = backs negative  fronts positive
-         * Move backward = backs positive  fronts negative
-         * Move left = rights negative  lefts positive
-         * Move right = rights positive  lefts negative
+        /** -----! CONTROLS !----- **/
+
+        /** -- Drive controls --
+         * Controls are as follows for the drive
+         * All controls are only on gamepad1
+         * - Left Stick Up/Down = Forward/Reverse
+         * - Left Stick Left/Right = Strafe Left/Right
+         * - Right Stick Left/Right = Rotate Left/Right
          */
 
         robot.leftFrontDrive.setPower(leftFrontScale);
@@ -128,7 +136,7 @@ public class DriveOpMode extends OpMode {
         telemetry.update();
     }
 
-    // Runs when robot is stopped (no longer running opmode)
+    // Runs when robot is stopped (no longer running OpMode)
     @Override
     public void stop() {
         // Kill all motors

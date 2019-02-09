@@ -1,49 +1,114 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "Short Auto Mode", group = "Autonomous")
-public class AutonomousShortOpMode extends OpMode {
+@Autonomous(name = "Short Auto Mode", group = "Th0r Autonomous")
+public class AutonomousShortOpMode extends LinearOpMode {
+
     HWMap robot = new HWMap();
+    private ElapsedTime opModeRuntime = new ElapsedTime();
+
+    static final double neverestCountsPerMotorRev = 1680;
+    static final double torqenadoeCountsPerMotorRev = 1440;
+
+    static final double armGearReduction = 2.5;
+    static final double armDiameterInches = 2.6693;
+    static final double armCountsPerInch = (torqenadoeCountsPerMotorRev * armGearReduction) / (armDiameterInches * 3.1415);
+
+    static final double wheelGearReduction = 1.0;
+    static final double wheelDiameterInches = 4.0;
+    static final double wheelCountsPerInch = (torqenadoeCountsPerMotorRev * wheelGearReduction) / (wheelDiameterInches * 3.1415);
+
+    static final double rodGearReduction = 1.0;
+    static final double rodDiameterInches = 1.0;
+    static final double rodCountsPerInch = (neverestCountsPerMotorRev * rodGearReduction) / (rodDiameterInches * 3.1415);
+
+    static final double driveSpeed = 0.6;
+    static final double turnSpeed = 0.5;
 
     @Override
-    public void init() {
-
-        // -- Robot Hardware initialization --
-        // Initialize the hardware variables from the hardware map
+    public void runOpMode() {
         robot.init(hardwareMap);
 
-        telemetry.addData("ROBOT STATUS", "INITIALIZED");
-        telemetry.update();
+        robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightRearDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightRearDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.armMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.armMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.armMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.armMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.rodMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.rodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        waitForStart();
+
+        // Step through each leg of the path,
+        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(driveSpeed,  48,  48, 5.0);
+        // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(turnSpeed,   12, -12, 4.0);
+        // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(driveSpeed, -24, -24, 4.0);
     }
 
-    // Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-    @Override
-    public void init_loop() {
-        telemetry.addData("ROBOT STATUS", "READY");
-        telemetry.update();
-    }
+    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
+        int newLeftTarget;
+        int newRightTarget;
 
-    // Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-    @Override
-    public void start() {
-        telemetry.addData("ROBOT STATUS", "RUNNING");
-        telemetry.update();
-    }
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
 
-    // Code to run REPEATEDLY after the driver hits PLAY but before the driver hits STOP
-    @Override
-    public void loop() {
-        telemetry.addData("ROBOT STATUS", "Not on fire");
-        telemetry.update();
-    }
+            // Determine new target position, and pass to motor controller
+            newLeftTarget = robot.leftFrontDrive.getCurrentPosition() + (int)(leftInches * wheelCountsPerInch);
+            newRightTarget = robot.rightFrontDrive.getCurrentPosition() + (int)(rightInches * wheelCountsPerInch);
+            robot.leftFrontDrive.setTargetPosition(newLeftTarget);
+            robot.rightFrontDrive.setTargetPosition(newRightTarget);
 
-    // Runs when robot is stopped (no longer running opmode)
-    @Override
-    public  void stop() {
-        // Telemetry
-        telemetry.addData("ROBOT STATUS", "Stopped, OpMode killed by user");
-        telemetry.update();
+            // Turn On RUN_TO_POSITION
+            robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            opModeRuntime.reset();
+            robot.leftFrontDrive.setPower(Math.abs(speed));
+            robot.rightFrontDrive.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (opModeRuntime.seconds() < timeoutS) && (robot.leftFrontDrive.isBusy() && robot.rightFrontDrive.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d", robot.leftFrontDrive.getCurrentPosition(), robot.rightFrontDrive.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.leftFrontDrive.setPower(0);
+            robot.rightFrontDrive.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
     }
 }
