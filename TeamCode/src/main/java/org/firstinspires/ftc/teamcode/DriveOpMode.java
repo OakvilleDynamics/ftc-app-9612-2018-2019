@@ -122,14 +122,27 @@ public class DriveOpMode extends OpMode {
          */
 
         if (gamepad1.left_bumper == true) {
-            robot.armMotor1.setPower(robot.ARM_UP_POWER_VAL);
-            robot.armMotor2.setPower(robot.ARM_UP_POWER_VAL);
+            robot.armMotor1.setPower(robot.ARM_UP_HIGH_POWER_VAL);
+            robot.armMotor2.setPower(robot.ARM_UP_HIGH_POWER_VAL);
         } else if (gamepad1.right_bumper == true) {
-            robot.armMotor1.setPower(robot.ARM_DOWN_POWER_VAL);
-            robot.armMotor2.setPower(robot.ARM_DOWN_POWER_VAL);
+            robot.armMotor1.setPower(robot.ARM_DOWN_HIGH_POWER_VAL);
+            robot.armMotor2.setPower(robot.ARM_DOWN_HIGH_POWER_VAL);
         } else {
             robot.armMotor1.setPower(0);
             robot.armMotor2.setPower(0);
+        }
+
+        /** -- Spool Controls
+         * Controls are as follows for the arm
+         * All controls are only on gamepad1
+         * - Left Trigger causes spool to wind up
+         * If nothing is pressed, do nothing
+         */
+
+        if (gamepad1.left_trigger > 0.25) {
+            robot.armMotorSpool.setPower(robot.ARM_UP_LOW_POWER_VAL);
+        } else {
+            robot.armMotorSpool.setPower(0);
         }
         // Send telemetry messages to signify robot running and whats actively going on
         telemetry.addData("ROBOT STATUS:", "Not on fire");
