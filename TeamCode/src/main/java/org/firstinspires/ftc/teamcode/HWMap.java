@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -15,6 +16,7 @@ public class HWMap {
     // Declaring and Initializing external motors for other functions
     public DcMotor armMotor1;
     public DcMotor armMotor2;
+    public DcMotor armMotorSpool;
     public DcMotor rodMotor;
 
     // Declaring and Initializing servos
@@ -31,8 +33,10 @@ public class HWMap {
     // variable to a value we can use in an OpMode when the time comes, as this is what we can use
     // for speed control so we do not damage the robot in the process of having the robot arm swing
     // down and hit itself
-    double ARM_UP_POWER_VAL = 1;
-    double ARM_DOWN_POWER_VAL = -1;
+    final double ARM_UP_HIGH_POWER_VAL = 1;
+    final double ARM_DOWN_HIGH_POWER_VAL = -1;
+    final double ARM_UP_LOW_POWER_VAL = 0.5;
+    final double ARM_DOWN_LOW_POWER_VAL = 0.5;
 
     // Constructor class
     // This is used to create an object that can be used by other classes and can take in input
@@ -55,6 +59,7 @@ public class HWMap {
         // Define and Initialize External Motors and other functions
         armMotor1 = omniHWMap.get(DcMotor.class, "armBoi1");
         armMotor2 = omniHWMap.get(DcMotor.class, "armBoi2");
+        armMotorSpool = omniHWMap.get(DcMotor.class, "armSpool");
         rodMotor = omniHWMap.get(DcMotor.class, "rod");
 
         // Define and Initialize Servos
@@ -72,6 +77,7 @@ public class HWMap {
         // Sets direction of motor power for the external functions
         armMotor1.setDirection(DcMotor.Direction.FORWARD);
         armMotor2.setDirection(DcMotor.Direction.REVERSE);
+        armMotorSpool.setDirection(DcMotor.Direction.REVERSE);
         rodMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power (0)
@@ -96,6 +102,7 @@ public class HWMap {
         // Set all external  to run to position for use in Autonomous
         armMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotorSpool.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rodMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
