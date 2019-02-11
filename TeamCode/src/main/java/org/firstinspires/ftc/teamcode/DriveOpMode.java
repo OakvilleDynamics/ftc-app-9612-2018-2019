@@ -3,8 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-@TeleOp(name = "Drive Mode", group = "Hipp0 DriveOp")
+@TeleOp(name = "Drive Mode", group = "Th0r DriveOp")
 public class DriveOpMode extends OpMode {
 
     // Call Hardware Map
@@ -40,9 +41,9 @@ public class DriveOpMode extends OpMode {
     @Override
     public void loop() {
         // Declare variables for wheels in total
-        double rightFront, leftRear, rightRear;
+        double leftFront, rightFront, leftRear, rightRear;
         // Declare variables fpr wheels in scaled input (as these values will sometimes reach higher than the maximum motor power value
-        double rightFrontScale, leftRearScale, rightRearScale;
+        double leftFrontScale, rightFrontScale, leftRearScale, rightRearScale;
         // Declare variables for calculating omni-wheel
         double leftStickX, leftStickY, rightStickX;
 
@@ -52,25 +53,37 @@ public class DriveOpMode extends OpMode {
         rightStickX = gamepad1.right_stick_x;
 
         // Run wheels in omni-wheel orientation
-        rightFront = - leftStickY - leftStickX + rightStickX;
-        leftRear = leftStickY + leftStickX + rightStickX;
-        rightRear = - leftStickY + leftStickX + rightStickX;
+        // NOTES FOR OUR MATHEMATICS ON THE HOLONOMIC WHEELS
+        // Rotate clockwise = All positive
+        // Rotate counter-clockwise = All negative
+        // Move forward = backs negative + fronts positive
+        // Move backward = backs positive + fronts negative
+        // Move left = rights negative + lefts positive
+        // Move right = rights positive + lefts negative
+
+        leftFront = leftStickY + leftStickX + rightStickX;
+        rightFront = leftStickY - leftStickX + rightStickX;
+        leftRear = - leftStickY + leftStickX + rightStickX;
+        rightRear = - leftStickY - leftStickX + rightStickX;
 
 
         // Scale the values because values can be larger than on
-        rightFrontScale = Range.clip(rightFront, -1,1);
-        leftRearScale = Range.clip(leftRear,-1,1);
+        leftFrontScale = Range.clip(leftFront, -1, 1);
+        rightFrontScale = Range.clip(rightFront, -1, 1);
+        leftRearScale = Range.clip(leftRear, -1, 1);
         rightRearScale = Range.clip(rightRear, -1, 1);
 
-        // -! CONTROLS !-
-        /** -- Motor controls --
-         * Rotate clockwise = All positive
-         * Rotate counter-clockwise = All negative
-         * Move forward = backs negative  fronts positive
-         * Move backward = backs positive  fronts negative
-         * Move left = rights negative  lefts positive
-         * Move right = rights positive  lefts negative
+        /** -----! CONTROLS !----- **/
+
+        /** -- Drive controls --
+         * Controls are as follows for the drive
+         * All controls are only on gamepad1
+         * - Left Stick Up/Down = Forward/Reverse
+         * - Left Stick Left/Right = Strafe Left/Right
+         * - Right Stick Left/Right = Rotate Left/Right
          */
+
+        robot.leftFrontDrive.setPower(leftFrontScale);
         robot.rightFrontDrive.setPower(rightFrontScale);
         robot.leftRearDrive.setPower(leftRearScale);
         robot.rightRearDrive.setPower(rightRearScale);
@@ -100,15 +113,47 @@ public class DriveOpMode extends OpMode {
             robot.paddleBack.setPosition(0.4);
         }
 
+        /** -- Arm Controls --
+         * Controls are as follows for the arm
+         * All controls are only on gamepad2
+         * - Left Bumper causes arm to raise arm
+         * - Right Bumper causes arm to lower arm
+         * If nothing is pressed, do nothing
+         */
+
+        if (gamepad2.left_bumper == true) {
+            robot.armMotor1.setPower(robot.ARM_UP_HIGH_POWER_VAL);
+            robot.armMotor2.setPower(robot.ARM_UP_HIGH_POWER_VAL);
+        } else if (gamepad2.right_bumper == true) {
+            robot.armMotor1.setPower(robot.ARM_DOWN_HIGH_POWER_VAL);
+            robot.armMotor2.setPower(robot.ARM_DOWN_HIGH_POWER_VAL);
+        } else {
+            robot.armMotor1.setPower(0);
+            robot.armMotor2.setPower(0);
+        }
+
+        /** -- Spool Controls --
+         * Controls are as follows for the arm
+         * All controls are only on gamepad2
+         * - Left Trigger causes spool to wind up
+         * If nothing is pressed, do nothing
+         */
+
+        if (gamepad2.left_trigger > 0.25) {
+            robot.armMotorSpool.setPower(robot.ARM_UP_LOW_POWER_VAL);
+        } else {
+            robot.armMotorSpool.setPower(0);
+        }
         // Send telemetry messages to signify robot running and whats actively going on
-        telemetry.addData("ROBOT STATUS:", "Not on fire");
+        telemetry.addData("ROBOT STATUS", "Not on fire");
         telemetry.update();
     }
 
-    // Runs when robot is stopped (no longer running opmode)
+    // Runs when robot is stopped (no longer running OpMode)
     @Override
     public void stop() {
         // Kill all motors
+        robot.leftFrontDrive.setPower(0);
         robot.rightFrontDrive.setPower(0);
         robot.leftRearDrive.setPower(0);
         robot.rightRearDrive.setPower(0);
