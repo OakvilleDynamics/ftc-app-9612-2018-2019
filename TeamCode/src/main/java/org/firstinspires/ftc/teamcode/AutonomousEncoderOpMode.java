@@ -16,17 +16,17 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
     // Motor counts for the special motors we have
     static final double neverestCountsPerMotorRev = 1680;
-    static final double torqenadoeCountsPerMotorRev = 1440;
+    static final double torqenadoCountsPerMotorRev = 1440;
 
     // Arm values for what hardware is connected to
     static final double armGearReduction = 2.5;
     static final double armDiameterInches = 2.6693;
-    static final double armCountsPerInch = (torqenadoeCountsPerMotorRev * armGearReduction) / (armDiameterInches * 3.1415);
+    static final double armCountsPerInch = (torqenadoCountsPerMotorRev * armGearReduction) / (armDiameterInches * 3.1415);
 
     // Wheel values for what hardware is connected to
     static final double wheelGearReduction = 1.0;
     static final double wheelDiameterInches = 4.0;
-    static final double wheelCountsPerInch = (torqenadoeCountsPerMotorRev * wheelGearReduction) / (wheelDiameterInches * 3.1415);
+    static final double wheelCountsPerInch = (torqenadoCountsPerMotorRev * wheelGearReduction) / (wheelDiameterInches * 3.1415);
 
     // Rod values for what hardware is connected to
     static final double rodGearReduction = 1.0;
