@@ -36,7 +36,7 @@ public class HWMap {
     final double ARM_UP_HIGH_POWER_VAL = 1;
     final double ARM_DOWN_HIGH_POWER_VAL = -1;
     final double ARM_UP_LOW_POWER_VAL = 0.5;
-    final double ARM_DOWN_LOW_POWER_VAL = 0.5;
+    final double ARM_DOWN_LOW_POWER_VAL = -0.5;
 
     // Constructor class
     // This is used to create an object that can be used by other classes and can take in input
